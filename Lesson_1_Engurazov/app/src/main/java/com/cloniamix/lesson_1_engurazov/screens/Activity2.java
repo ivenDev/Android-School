@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,16 +28,14 @@ public class Activity2 extends AppCompatActivity {
         mStudentList = new HashMap<>();
 
         mETStudentData = findViewById(R.id.et_student_data);
-        mETStudentData.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
-                    saveStudentData();
-                    return true;
-                }
-                return false;
+        mETStudentData.setOnKeyListener((v, keyCode, event) ->  {
+            if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
+                saveStudentData();
+                return true;
             }
+            return false;
         });
+
         mTVData = findViewById(R.id.tv_data);
 
         Button showDataBtn = findViewById(R.id.btn_show_data);
@@ -71,11 +68,12 @@ public class Activity2 extends AppCompatActivity {
 
     // собирает все данные студентов из списка в один String и выводит на экран
     private void showStudentData(){
-        String mainData = "";
+
+        StringBuilder sb = new StringBuilder();
         for (Student student: mStudentList.values()){
-            String data = student.getAllData() + "\n\n";
-            mainData = mainData + data;
+            sb.append(student.getAllData()).append("\n\n");
         }
+        String mainData = sb.toString();
         mTVData.setText(mainData);
     }
 

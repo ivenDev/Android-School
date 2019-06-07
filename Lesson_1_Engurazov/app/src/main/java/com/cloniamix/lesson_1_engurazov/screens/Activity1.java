@@ -55,13 +55,21 @@ public class Activity1 extends AppCompatActivity {
 
     //собирает все имена в один String и выводит на экран
     private void showNameList(){
-        String list = "Список учеников: \n";
+        /*String list = "Список учеников: \n";
         for (String a: mNameList){
 
-            // FIXME: 04.06.2019 узнать про конкатенацию
             list = list + a + "\n";
+        }*/
+
+        String text = "Список учеников: \n";
+        StringBuilder sb = new StringBuilder();
+        sb.append(text);
+
+        for (String a: mNameList){
+            sb.append(a).append("\n");
         }
 
+        String list = sb.toString();
         mNameListTextView.setText(list);
 
         //mNameListTextView.setText(mNameList.toString());// выводит в таком формате: [имя1, имя2 и т.д]
