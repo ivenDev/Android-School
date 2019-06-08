@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lesson_2_Engurazov</string>
+    <string name="text_view_quatrain_text">
+        Я памятник себе воздвиг нерукотворный,\n
+        К нему не зарастёт народная тропа,\n
+        Вознёсся выше он главою непокорной\n
+	    Александрийского столпа.
+    </string>
+    <string name="button_text">Радость и счастье</string>
+
+</resources>
