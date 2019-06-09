@@ -3,5 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="quatrainTextColor">#FF0000</color>
+    <color name="colorQuatrainText">#FF0000</color>
+
+    <color name="colorRed">#F00000</color>
+    <color name="colorGreen">#4CAF50</color>
+    <color name="colorButton1SecondActivity">#d46610</color>
 </resources>
