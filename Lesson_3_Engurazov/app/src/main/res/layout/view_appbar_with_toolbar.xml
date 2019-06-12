@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="@string/toolbar_title_text"
+        app:navigationIcon="@drawable/ic_arrow_back_black_24_px"
+        />
+    <!--app:menu="@menu/main"-->
+    <!-- TODO тут делать контент шапки, можно заменить на констренит -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@color/colorWhite">
+
+
+        <ImageView
+            android:id="@+id/imageViewLabel"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_margin="16dp"
+            app:srcCompat="@drawable/img_profile_spechialist" />
+
+        <TextView
+            android:id="@+id/textViewAccountId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorGreyishBrown"
+            android:lineSpacingExtra="8sp"
+            android:layout_toEndOf="@id/imageViewLabel"
+            android:layout_centerVertical="true"
+            tools:text="Карта №7898769 \n Специалист"
+            />
+    </RelativeLayout>
+
+</com.google.android.material.appbar.AppBarLayout>

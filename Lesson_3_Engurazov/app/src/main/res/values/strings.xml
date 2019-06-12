@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Lesson_3_Engurazov</string>
+    <string name="text_view_hint_text">Выберите задание</string>
+    <string name="button_activity_1_text">Задание 1</string>
+    <string name="button_activity_2_text">Задание 2</string>
+    <string name="button_activity_3_text">Задание 3</string>
+
+    <string name="toolbar_title_text">Личный профиль</string>
+    <string name="menu_item_edit_text">Edit</string>
+
+    <string name="account_data_hint_text">Личные данные</string>
+    <string name="name_hint_text">Имя</string>
+    <string name="surname_hint_text">Фамилия</string>
+    <string name="email_hint_text">E-mail</string>
+    <string name="login_hint_text">Логин</string>
+    <string name="region_hint_text">Ваш регион</string>
+    <string name="exit_hint_text">Выйти из аккаунта</string>
+
+    <!--toasts-->
+    <string name="menu_edit_item_toast_text">Menu edit item clicked</string>
+    <string name="menu_navigation_toast_text">Back clicked</string>
+    <string name="imageview_toast_text">Image clicked</string>
+    <string name="exit_toast_text">Exit clicked</string>
+</resources>

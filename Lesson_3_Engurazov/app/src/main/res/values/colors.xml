@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/colorSunflower</color>
+    <color name="colorPrimaryDark">@color/colorSquash</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWarmGgrey">#979797</color>
+    <color name="colorGreyishBrown">#414141</color>
+    <color name="colorSquash">#f5bf1f</color>
+    <color name="colorSunflower">#ffcd10</color>
+
+
+</resources>

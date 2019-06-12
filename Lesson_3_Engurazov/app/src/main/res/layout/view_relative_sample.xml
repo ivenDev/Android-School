@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="16dp"
+    android:layout_marginBottom="16dp">
+
+    <TextView
+        android:id="@+id/textViewAccountDataHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textColor="@color/colorSquash"
+        android:layout_marginTop="30dp"
+        android:text="@string/account_data_hint_text"
+        />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutName"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:layout_below="@id/textViewAccountDataHint">
+
+        <TextView
+            android:id="@+id/textViewNameHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorWarmGgrey"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/name_hint_text" />
+
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorGreyishBrown"
+            android:lineSpacingExtra="8sp"
+            android:layout_marginTop="2dp"
+            tools:text="Анастасия" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutSurname"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:layout_below="@id/linearLayoutName">
+
+        <TextView
+            android:id="@+id/textViewSurnameHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorWarmGgrey"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/surname_hint_text" />
+
+        <TextView
+            android:id="@+id/textViewSurname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorGreyishBrown"
+            android:lineSpacingExtra="8sp"
+            android:layout_marginTop="2dp"
+            tools:text="Антонина" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutEmail"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:layout_below="@id/linearLayoutSurname">
+
+        <TextView
+            android:id="@+id/textViewEmailHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorWarmGgrey"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/email_hint_text" />
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorGreyishBrown"
+            android:lineSpacingExtra="8sp"
+            android:layout_marginTop="2dp"
+            tools:text="anykee.box@gmail.ru" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutLogin"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:layout_below="@id/linearLayoutEmail">
+
+        <TextView
+            android:id="@+id/textViewLoginHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorWarmGgrey"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/login_hint_text" />
+
+        <TextView
+            android:id="@+id/textViewLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorGreyishBrown"
+            android:lineSpacingExtra="8sp"
+            android:layout_marginTop="2dp"
+            tools:text="HIE023UOI88" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutRegion"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        android:layout_below="@id/linearLayoutLogin">
+
+        <TextView
+            android:id="@+id/textViewRegionHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorWarmGgrey"
+            android:lineSpacingExtra="6sp"
+            android:text="@string/region_hint_text" />
+
+        <TextView
+            android:id="@+id/textViewRegion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorGreyishBrown"
+            android:lineSpacingExtra="8sp"
+            android:layout_marginTop="2dp"
+            tools:text="Санкт-Петербург" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutButtons"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_below="@id/linearLayoutRegion">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="?attr/selectableItemBackground"
+            app:srcCompat="@drawable/ic_menu_exit" />
+
+        <TextView
+            android:id="@+id/textViewExit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorGreyishBrown"
+            android:lineSpacingExtra="8sp"
+            android:layout_marginStart="31dp"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/exit_hint_text" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
