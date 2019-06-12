@@ -13,8 +13,6 @@
         app:title="@string/toolbar_title_text"
         app:navigationIcon="@drawable/ic_arrow_back_black_24_px"
         />
-    <!--app:menu="@menu/main"-->
-    <!-- TODO тут делать контент шапки, можно заменить на констренит -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
