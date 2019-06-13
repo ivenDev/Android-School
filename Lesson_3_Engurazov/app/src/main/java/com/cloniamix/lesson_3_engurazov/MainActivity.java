@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.buttonActivity3:
-                Toast.makeText(this, "В разработке", Toast.LENGTH_SHORT).show();
+                startActivity(Task3Activity.createStartIntent(this));
                 break;
         }
     }
