@@ -55,12 +55,8 @@ public class Task2Activity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v ->
                 showToast(getResources().getString(R.string.menu_navigation_toast_text)));
 
-        ImageView imageView = findViewById(R.id.imageView);
-        imageView.setOnClickListener(v ->
-                showToast(getResources().getString(R.string.imageview_toast_text)));
-
-        TextView textViewExit = findViewById(R.id.textViewExit);
-        textViewExit.setOnClickListener(v ->
+        TextView textViewExitButton = findViewById(R.id.textViewExitButton);
+        textViewExitButton.setOnClickListener(v ->
                 showToast(getResources().getString(R.string.exit_toast_text)));
     }
 

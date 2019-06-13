@@ -19,6 +19,5 @@
     <!--toasts-->
     <string name="menu_edit_item_toast_text">Menu edit item clicked</string>
     <string name="menu_navigation_toast_text">Back clicked</string>
-    <string name="imageview_toast_text">Image clicked</string>
     <string name="exit_toast_text">Exit clicked</string>
 </resources>

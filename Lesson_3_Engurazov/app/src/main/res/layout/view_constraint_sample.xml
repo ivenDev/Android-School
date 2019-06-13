@@ -204,41 +204,26 @@
             tools:text="Санкт-Петербург" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayoutButtons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayoutRegion"
-        android:orientation="horizontal"
-        android:layout_marginTop="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutRegion">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="?attr/selectableItemBackground"
-            app:srcCompat="@drawable/ic_menu_exit" />
-
         <TextView
-            android:id="@+id/textViewExit"
+            android:id="@+id/textViewExitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
-            android:background="?attr/selectableItemBackground"
-            android:fontFamily="sans-serif"
-            android:gravity="center_vertical"
-            android:lineSpacingExtra="8sp"
-            android:text="@string/exit_hint_text"
-            android:textColor="@color/colorGreyishBrown"
             android:textSize="16sp"
-            android:textStyle="normal" />
-
-
-    </LinearLayout>
+            android:fontFamily="sans-serif"
+            android:textStyle="normal"
+            android:textColor="@color/colorGreyishBrown"
+            android:lineSpacingExtra="8sp"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/exit_hint_text"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="16dp"
+            android:drawableStart="@drawable/ic_menu_exit"
+            android:drawablePadding="31dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutRegion"
+            />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
