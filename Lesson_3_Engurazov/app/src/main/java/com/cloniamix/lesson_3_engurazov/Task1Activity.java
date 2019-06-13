@@ -7,17 +7,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Task1Activity extends AppCompatActivity {
 
     private TextView textViewAccountId;
-    private TextView textViewName;
-    private TextView textViewSurname;
-    private TextView textViewEmail;
-    private TextView textViewLogin;
-    private TextView textViewRegion;
+
+    private LinearLayout linearLayoutName;
+    private LinearLayout linearLayoutSurname;
+    private LinearLayout linearLayoutEmail;
+    private LinearLayout linearLayoutLogin;
+    private LinearLayout linearLayoutRegion;
+
 
     public static Intent createStartIntent(Context context){
         return new Intent(context,Task1Activity.class);
@@ -30,7 +33,6 @@ public class Task1Activity extends AppCompatActivity {
 
         init();
         updateUi(getUser());
-
     }
 
     private User getUser(){
@@ -40,11 +42,12 @@ public class Task1Activity extends AppCompatActivity {
 
     private void init(){
         textViewAccountId = findViewById(R.id.textViewAccountId);
-        textViewName = findViewById(R.id.textViewName);
-        textViewSurname = findViewById(R.id.textViewSurname);
-        textViewEmail = findViewById(R.id.textViewEmail);
-        textViewLogin = findViewById(R.id.textViewLogin);
-        textViewRegion = findViewById(R.id.textViewRegion);
+
+        linearLayoutName = findViewById(R.id.linearLayoutName);
+        linearLayoutSurname = findViewById(R.id.linearLayoutSurname);
+        linearLayoutEmail = findViewById(R.id.linearLayoutEmail);
+        linearLayoutLogin = findViewById(R.id.linearLayoutLogin);
+        linearLayoutRegion = findViewById(R.id.linearLayoutRegion);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.main);
@@ -68,11 +71,34 @@ public class Task1Activity extends AppCompatActivity {
     private void updateUi(User user){
         String accountIdAndPosition = "Карта №" + user.getId() + "\n" + user.getPosition();
         textViewAccountId.setText(accountIdAndPosition);
-        textViewName.setText(user.getName());
-        textViewSurname.setText(user.getSurname());
-        textViewEmail.setText(user.getEmail());
-        textViewLogin.setText(user.getLogin());
-        textViewRegion.setText(user.getRegion());
+
+        TextView hint;
+        TextView content;
+
+        hint = linearLayoutName.findViewById(R.id.textViewHint);
+        content = linearLayoutName.findViewById(R.id.textViewContent);
+        hint.setText(getResources().getString(R.string.name_hint_text));
+        content.setText(user.getName());
+
+        hint = linearLayoutSurname.findViewById(R.id.textViewHint);
+        content = linearLayoutSurname.findViewById(R.id.textViewContent);
+        hint.setText(getResources().getString(R.string.surname_hint_text));
+        content.setText(user.getSurname());
+
+        hint = linearLayoutEmail.findViewById(R.id.textViewHint);
+        content = linearLayoutEmail.findViewById(R.id.textViewContent);
+        hint.setText(getResources().getString(R.string.email_hint_text));
+        content.setText(user.getEmail());
+
+        hint = linearLayoutLogin.findViewById(R.id.textViewHint);
+        content = linearLayoutLogin.findViewById(R.id.textViewContent);
+        hint.setText(getResources().getString(R.string.login_hint_text));
+        content.setText(user.getLogin());
+
+        hint = linearLayoutRegion.findViewById(R.id.textViewHint);
+        content = linearLayoutRegion.findViewById(R.id.textViewContent);
+        hint.setText(getResources().getString(R.string.region_hint_text));
+        content.setText(user.getRegion());
     }
 
     private void showToast(String message){
