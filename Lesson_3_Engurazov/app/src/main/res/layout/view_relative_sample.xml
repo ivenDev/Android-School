@@ -3,8 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="16dp"
-    android:layout_marginBottom="16dp">
+    android:paddingStart="@dimen/padding_in_dp"
+    android:paddingEnd="@dimen/padding_in_dp"
+    android:paddingBottom="@dimen/padding_in_dp">
 
     <TextView
         android:id="@+id/textViewAccountDataHint"
@@ -29,28 +30,28 @@
         android:id="@+id/linearLayoutSurname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="@dimen/between_text_fields_in_dp"
         android:layout_below="@id/linearLayoutName"/>
 
     <include layout="@layout/view_2_text_field"
         android:id="@+id/linearLayoutEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="@dimen/between_text_fields_in_dp"
         android:layout_below="@id/linearLayoutSurname"/>
 
     <include layout="@layout/view_2_text_field"
         android:id="@+id/linearLayoutLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="@dimen/between_text_fields_in_dp"
         android:layout_below="@id/linearLayoutEmail"/>
 
     <include layout="@layout/view_2_text_field"
         android:id="@+id/linearLayoutRegion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="@dimen/between_text_fields_in_dp"
         android:layout_below="@id/linearLayoutLogin"/>
 
 
@@ -66,11 +67,11 @@
         android:background="?attr/selectableItemBackground"
         android:text="@string/exit_hint_text"
         android:layout_marginTop="48dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:layout_below="@id/linearLayoutRegion"
         android:drawableStart="@drawable/ic_menu_exit"
         android:drawablePadding="31dp"
         />
-
-
 
 </RelativeLayout>

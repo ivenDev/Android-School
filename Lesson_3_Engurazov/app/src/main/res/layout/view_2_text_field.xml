@@ -13,7 +13,7 @@
         android:textSize="14sp"
         android:fontFamily="sans-serif"
         android:textStyle="normal"
-        android:textColor="@color/colorWarmGgrey"
+        android:textColor="@color/colorWarmGrey"
         android:lineSpacingExtra="6sp"
         tools:text="Hint" />
 

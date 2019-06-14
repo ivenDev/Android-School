@@ -8,6 +8,8 @@
     <string name="toolbar_title_text">Личный профиль</string>
     <string name="menu_item_edit_text">Edit</string>
 
+    <string name="account_id_and_position_text">Карта № %1$d\n%2$s</string>
+
     <string name="account_data_hint_text">Личные данные</string>
     <string name="name_hint_text">Имя</string>
     <string name="surname_hint_text">Фамилия</string>

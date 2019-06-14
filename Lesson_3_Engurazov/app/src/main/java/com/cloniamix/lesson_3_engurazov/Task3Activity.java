@@ -52,8 +52,7 @@ public class Task3Activity extends AppCompatActivity {
             showToast(getResources().getString(R.string.menu_edit_item_toast_text));
             return true;
         });
-        toolbar.setNavigationOnClickListener(v ->
-                showToast(getResources().getString(R.string.menu_navigation_toast_text)));
+        toolbar.setNavigationOnClickListener(v -> finish());
 
         TextView textViewExitButton = findViewById(R.id.textViewExitButton);
         textViewExitButton.setOnClickListener(v ->
@@ -61,8 +60,8 @@ public class Task3Activity extends AppCompatActivity {
     }
 
     private void updateUi(User user){
-        String accountIdAndPosition = "Карта №" + user.getId() + "\n" + user.getPosition();
-        textViewAccountId.setText(accountIdAndPosition);
+        textViewAccountId.setText(getString(R.string.account_id_and_position_text
+                ,user.getId(),user.getPosition()));
         textViewName.setText(user.getName());
         textViewSurname.setText(user.getSurname());
         textViewEmail.setText(user.getEmail());

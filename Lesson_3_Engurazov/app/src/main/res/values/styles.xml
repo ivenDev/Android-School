@@ -19,5 +19,20 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:onClick">selectTask</item>
     </style>
+    
+    <style name="TextHintTheme">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:textColor">@color/colorWarmGrey</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextContentTheme" parent="TextHintTheme">
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="android:textColor">@color/colorGreyishBrown</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
 
 </resources>

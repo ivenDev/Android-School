@@ -15,7 +15,6 @@
         android:layout_height="match_parent">
 
         <include layout="@layout/view_relative_sample"/>
-        <!--<include layout="@layout/view_constraint_sample"/>-->
 
     </androidx.core.widget.NestedScrollView>
 

@@ -5,8 +5,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="16dp"
-    android:layout_marginBottom="16dp">
+    android:paddingStart="@dimen/padding_in_dp"
+    android:paddingEnd="@dimen/padding_in_dp"
+    android:paddingBottom="@dimen/padding_in_dp">
 
     <TextView
         android:id="@+id/textViewAccountDataHint"
@@ -23,206 +24,145 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <LinearLayout
-        android:id="@+id/linearLayoutName"
+    <TextView
+        android:id="@+id/textViewNameHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewAccountDataHint"
-        android:orientation="vertical"
+        style="@style/TextHintTheme"
+        android:text="@string/name_hint_text"
         android:layout_marginTop="31dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAccountDataHint">
+        app:layout_constraintTop_toBottomOf="@+id/textViewAccountDataHint"/>
 
-        <TextView
-            android:id="@+id/textViewNameHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="6sp"
-            android:text="@string/name_hint_text"
-            android:textColor="@color/colorWarmGgrey"
-            android:textSize="14sp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/textViewName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="8sp"
-            android:textColor="@color/colorGreyishBrown"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            tools:text="Анастасия" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutSurname"
+    <TextView
+        android:id="@+id/textViewName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayoutName"
-        android:orientation="vertical"
+        android:layout_marginTop="2dp"
+        style="@style/TextContentTheme"
+        tools:text="Анастасия"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNameHint"/>
+
+    <TextView
+        android:id="@+id/textViewSurnameHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextHintTheme"
+        android:text="@string/surname_hint_text"
         android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutName">
+        app:layout_constraintTop_toBottomOf="@+id/textViewName"/>
 
-        <TextView
-            android:id="@+id/textViewSurnameHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="6sp"
-            android:text="@string/surname_hint_text"
-            android:textColor="@color/colorWarmGgrey"
-            android:textSize="14sp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/textViewSurname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="8sp"
-            android:textColor="@color/colorGreyishBrown"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            tools:text="Антонина" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutEmail"
+    <TextView
+        android:id="@+id/textViewSurname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayoutSurname"
-        android:orientation="vertical"
+        android:layout_marginTop="2dp"
+        style="@style/TextContentTheme"
+        tools:text="Антонина"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSurnameHint"/>
+
+    <TextView
+        android:id="@+id/textViewEmailHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextHintTheme"
+        android:text="@string/email_hint_text"
         android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutSurname">
+        app:layout_constraintTop_toBottomOf="@+id/textViewSurname"/>
 
-        <TextView
-            android:id="@+id/textViewEmailHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="6sp"
-            android:text="@string/email_hint_text"
-            android:textColor="@color/colorWarmGgrey"
-            android:textSize="14sp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/textViewEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="8sp"
-            android:textColor="@color/colorGreyishBrown"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            tools:text="anykee.box@gmail.ru" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutLogin"
+    <TextView
+        android:id="@+id/textViewEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayoutEmail"
-        android:orientation="vertical"
+        android:layout_marginTop="2dp"
+        style="@style/TextContentTheme"
+        tools:text="anykee.box@gmail.ru"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEmailHint"/>
+
+
+    <TextView
+        android:id="@+id/textViewLoginHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextHintTheme"
+        android:text="@string/login_hint_text"
         android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutEmail">
+        app:layout_constraintTop_toBottomOf="@+id/textViewEmail"/>
 
-        <TextView
-            android:id="@+id/textViewLoginHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="6sp"
-            android:text="@string/login_hint_text"
-            android:textColor="@color/colorWarmGgrey"
-            android:textSize="14sp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:id="@+id/textViewLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="8sp"
-            android:textColor="@color/colorGreyishBrown"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            tools:text="HIE023UOI88" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutRegion"
+    <TextView
+        android:id="@+id/textViewLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/linearLayoutLogin"
-        android:orientation="vertical"
+        android:layout_marginTop="2dp"
+        style="@style/TextContentTheme"
+        tools:text="HIE023UOI88"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLoginHint"/>
+
+    <TextView
+        android:id="@+id/textViewRegionHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextHintTheme"
+        android:text="@string/region_hint_text"
         android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutLogin">
+        app:layout_constraintTop_toBottomOf="@+id/textViewLogin"/>
 
-        <TextView
-            android:id="@+id/textViewRegionHint"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="6sp"
-            android:text="@string/region_hint_text"
-            android:textColor="@color/colorWarmGgrey"
-            android:textSize="14sp"
-            android:textStyle="normal" />
+    <TextView
+        android:id="@+id/textViewRegion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        style="@style/TextContentTheme"
+        tools:text="Санкт-Петербург"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRegionHint"/>
 
-        <TextView
-            android:id="@+id/textViewRegion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="sans-serif"
-            android:lineSpacingExtra="8sp"
-            android:textColor="@color/colorGreyishBrown"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            tools:text="Санкт-Петербург" />
-    </LinearLayout>
 
         <TextView
             android:id="@+id/textViewExitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:fontFamily="sans-serif"
-            android:textStyle="normal"
-            android:textColor="@color/colorGreyishBrown"
-            android:lineSpacingExtra="8sp"
+            style="@style/TextContentTheme"
             android:background="?attr/selectableItemBackground"
             android:text="@string/exit_hint_text"
             android:layout_marginTop="48dp"
             android:layout_marginBottom="16dp"
             android:drawableStart="@drawable/ic_menu_exit"
             android:drawablePadding="31dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayoutRegion"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRegion"
             />
 
 
