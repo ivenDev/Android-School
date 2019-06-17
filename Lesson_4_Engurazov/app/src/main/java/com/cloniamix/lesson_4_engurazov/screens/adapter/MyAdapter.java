@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.cloniamix.lesson_4_engurazov.utils.Utils.ITEM_MULTIPLE;
+import static com.cloniamix.lesson_4_engurazov.utils.Utils.ITEM_SINGLE;
+
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<InfoItem> items;
@@ -31,32 +34,32 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         View view;
         RecyclerView.ViewHolder viewHolder;
 
-
-        if (viewType == 1) {
+        if (viewType == ITEM_SINGLE) {
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.view_item_single, parent, false);
 
             viewHolder = new SingleUtilityViewHolder(view);
         } else {
+
             view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.view_item_multiple, parent, false);
-
             viewHolder = new MultipleUtilityViewHolder(view);
         }
-        return  viewHolder;
+
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == 1) {
-            ((SingleUtilityViewHolder)holder).itemView.setOnClickListener(v ->
+        if (getItemViewType(position) == ITEM_SINGLE) {
+            ((SingleUtilityViewHolder) holder).itemView.setOnClickListener(v ->
                     listener.onClick(holder.itemView, items.get(position)));
             ((SingleUtilityViewHolder) holder).bind(items.get(position));
-        }
-        else {
-            ((MultipleUtilityViewHolder)holder).itemView.setOnClickListener(v ->
+        } else {
+            ((MultipleUtilityViewHolder) holder).itemView.setOnClickListener(v ->
                     listener.onClick(holder.itemView, items.get(position)));
-            ((MultipleUtilityViewHolder)holder).bind(items.get(position));
+            ((MultipleUtilityViewHolder) holder).bind(items.get(position));
+
         }
     }
 
@@ -67,9 +70,12 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (items.get(position).isSingleInLine()) return 1;
-        else return 2;
+        if (items.get(position).isSingleInLine()) return ITEM_SINGLE;
+        else if (position % 2 == 0) {
+            if (!(getItemViewType(position + 1) == ITEM_MULTIPLE)) return ITEM_SINGLE;
+        }
+        return ITEM_MULTIPLE;
+
 
     }
-
 }

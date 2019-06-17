@@ -18,6 +18,9 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
+import static com.cloniamix.lesson_4_engurazov.utils.Utils.ITEM_MULTIPLE;
+import static com.cloniamix.lesson_4_engurazov.utils.Utils.ITEM_SINGLE;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -52,9 +55,14 @@ public class MainActivity extends AppCompatActivity {
                 // FIXME: 16.06.2019 растянуть "охрана" на две ячейки
                 switch(adapter.getItemViewType(position)){
 
-                    case 1:
+                    case ITEM_SINGLE:
                         return 2;
-                    case 2:
+                    case ITEM_MULTIPLE:
+                        if (position % 2 == 0 ){
+                            if (!(adapter.getItemViewType(position+1) == ITEM_MULTIPLE)){
+                                return 2;
+                            }
+                        }
                         return 1;
 
                     default:
