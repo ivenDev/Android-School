@@ -5,8 +5,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
+    android:layout_height="wrap_content"
     android:fitsSystemWindows="true">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="@string/toolbar_title_text"
+        app:navigationIcon="@drawable/ic_arrow_back_black_24_px"
+    />
 
     <com.google.android.material.appbar.CollapsingToolbarLayout
         android:id="@+id/collapsing_toolbar"
@@ -25,9 +33,7 @@
             android:layout_height="match_parent"
             android:layout_margin="16dp"
             android:background="@color/colorWhite"
-            android:scaleType="centerCrop"
-            android:fitsSystemWindows="true"
-            app:layout_collapseMode="parallax"
+            app:layout_scrollFlags="scroll|enterAlways"
             android:gravity="center_vertical">
 
 
@@ -54,14 +60,7 @@
         </RelativeLayout>
 
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/toolbar_title_text"
-            app:navigationIcon="@drawable/ic_arrow_back_black_24_px"
-            app:layout_collapseMode="pin"
-            />
+
 
 
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="4sp">
+<!--android:background="?attr/selectableItemBackground"-->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/imageViewIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_in_dp"
+            android:paddingStart="@dimen/padding_in_dp"
+            android:paddingEnd="@dimen/padding_in_dp"
+            android:gravity="start"
+            tools:srcCompat="@drawable/ic_bill" />
+
+        <TextView
+            android:id="@+id/textViewItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ItemNameTheme"
+            tools:text="Квитанции"
+            />
+
+        <TextView
+            android:id="@+id/textViewItemHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ItemHintTheme"
+            tools:text="- 40 080,55 ₽ "
+            />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Lesson_4_Engurazov</string>
+    <string name="toolbar_title_text">Моя квартира</string>
+    <string name="menu_item_home_text">Home</string>
+    <string name="menu_item_info_text">Info</string>
+    <string name="bill_name_text">Квитанции</string>
+    <string name="bill_hint_text">-40080,55 Р</string>
+    <string name="counter_name_text">Счетчики</string>
+    <string name="counter_hint_text">Подайте показания</string>
+    <string name="installment_name_text">Рассрочка</string>
+    <string name="installment_hint_text">Сл. платеж 25.02.2018</string>
+    <string name="insurance_name_text">Страхование</string>
+    <string name="insurance_hint_text">Полис до 12.01.2019</string>
+    <string name="tv_name_text">Интернет и ТВ</string>
+    <string name="tv_hint_text">Баланс 350 Р</string>
+    <string name="homephone_name_text">Домофон</string>
+    <string name="homephone_hint_text">Подключен</string>
+    <string name="guard_name_text">Охрана</string>
+    <string name="guard_hint_text">Нет</string>
+    <string name="uk_contacts_name_text">Контакты УК и служб</string>
+    <string name="request_name_text">Мои заявки</string>
+    <string name="about_name_text">Памятка жителя</string>
+    <string name="home_menu_toast_text">Home menu item clicked</string>
+    <string name="dialog_title_text">Info</string>
+    <string name="dialog_message_text">Информация о приложении</string>
+    <string name="dialog_positiv_button_text">Ok</string>
+</resources>
