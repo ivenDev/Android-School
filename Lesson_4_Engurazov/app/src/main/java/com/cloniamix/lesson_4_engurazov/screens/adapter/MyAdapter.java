@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-// FIXME: 16.06.2019 установить background у вьюхи
 public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<InfoItem> items;
