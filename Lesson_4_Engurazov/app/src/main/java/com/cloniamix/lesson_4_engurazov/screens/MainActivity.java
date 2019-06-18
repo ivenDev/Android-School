@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public int getSpanSize(int position) {
 
-                // FIXME: 16.06.2019 растянуть "охрана" на две ячейки
                 switch(adapter.getItemViewType(position)){
 
                     case ITEM_SINGLE:

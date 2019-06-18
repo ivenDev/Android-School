@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Lesson_5_Engurazov</string>
+    <string name="activity_1_name_text">Activity 1</string>
+    <string name="go_to_4_text">go to 4</string>
+    <string name="go_to_2_text">go to 2</string>
+    <string name="activity_2_name_text">Activity 2</string>
+    <string name="go_to_3_text">go to 3</string>
+    <string name="go_to_5_text">go to 5</string>
+    <string name="activity_3_name_text">Activity 3</string>
+    <string name="go_to_1_text">go to 1</string>
+    <string name="activity_4_name_text">Activity 4</string>
+    <string name="go_to_4_again_text">go to 4 again</string>
+    <string name="activity_5_name_text">Activity 5</string>
+    <string name="deliver_result_text">Deliver result</string>
+    <string name="edit_text_hint_text">Введите текст</string>
+    <string name="activity_5_toast_text">Введите текст</string>
+    <string name="button_save_text">Save</string>
+</resources>
