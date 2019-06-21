@@ -15,4 +15,10 @@
     <string name="edit_text_hint_text">Введите текст</string>
     <string name="activity_5_toast_text">Введите текст</string>
     <string name="button_save_text">Save</string>
+    <string name="go_to_6_text">Go To 6</string>
+    <string name="service_text">Услуги</string>
+    <string name="offer_a_service_text">Предложить услугу</string>
+    <string name="all_text">Все</string>
+    <string name="offer_a_services_toast_text">Предложить услугу</string>
+    <string name="all_services_toast_text">Все услуги</string>
 </resources>

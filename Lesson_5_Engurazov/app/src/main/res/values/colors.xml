@@ -5,4 +5,10 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="colorBlack">#000000</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorWarmGreyTwo">#888888</color>
+    <color name="colorCharcoalGrey">#363742</color>
+    <color name="colorTealish">#20ccd2</color>
+    <color name="colorPaleGrey">#F3F5F6</color>
+
 </resources>
