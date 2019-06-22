@@ -30,7 +30,7 @@ public class MyPagerAdapter extends PagerAdapter {
 
         View layout = LayoutInflater.from(container.getContext()).inflate(R.layout.image_view, container, false);
         container.addView(layout);
-        ImageView imageView = container.findViewById(R.id.imageView);
+        ImageView imageView = layout.findViewById(R.id.imageView);
         Glide.with(layout)
                 .load(url)
                 .centerCrop()
