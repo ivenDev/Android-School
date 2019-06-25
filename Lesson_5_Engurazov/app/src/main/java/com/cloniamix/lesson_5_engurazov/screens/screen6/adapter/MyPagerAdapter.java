@@ -1,12 +1,12 @@
 package com.cloniamix.lesson_5_engurazov.screens.screen6.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cloniamix.lesson_5_engurazov.R;
 
 import java.util.ArrayList;
@@ -34,8 +34,8 @@ public class MyPagerAdapter extends PagerAdapter {
         Glide.with(layout)
                 .load(url)
                 .centerCrop()
-                /*.skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)*/
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .placeholder(container.getContext().getResources().getDrawable(R.drawable.ic_crop))
                 .into(imageView);
 

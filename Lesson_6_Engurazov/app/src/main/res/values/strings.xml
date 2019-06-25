@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Lesson_6_Engurazov</string>
+    <string name="fragment_1_name_text">Фрагмент 1</string>
+    <string name="item_one_title_text">Item one</string>
+    <string name="item_two_title_text">Item two</string>
+    <string name="item_three_title_text">Item three</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_2_name_text">Фрагмент 2</string>
+    <string name="fragment_3_show_button_text">Показать банер</string>
+    <string name="toolbar_fragment_3_title">Item three</string>
+    <string name="toolbar_fragment_1_title">Item one</string>
+    <string name="toolbar_fragment_2_title">Item two</string>
+    <string name="item_search_text">search</string>
+    <string name="item_action_2_text">action 2</string>
+    <string name="item_action_3_text">action 3</string>
+    <string name="search_item_toast_text">search item clicked</string>
+    <string name="action_2_item_toast_text">action 2 item clicked</string>
+    <string name="action_3_item_toast_text">action 3 item clicked</string>
+    <string name="menu_item_lamp_text">Фонарик</string>
+    <string name="new_readings_hint_text">Новые показания</string>
+
+    <string name="dialog_title_text">Info</string>
+    <string name="dialog_message_text">Информация о приложении</string>
+    <string name="dialog_positive_button_text">OK</string>
+    <string name="incorrect_readings_toast_text">Введите корректные данные</string>
+    <string name="more_item_toast_text">More item clicked</string>
+    <string name="morning_night_peak_readings_toast_text">День: %1$s\nНочь: %2$s\nПик: %3$s</string>
+    <string name="morning_readings_hint_text">День</string>
+    <string name="night_readings_hint_text">Ночь</string>
+    <string name="peak_readings_hint_text">Пик</string>
+    <string name="lamp_item_toast_text">Включить фонарик</string>
+    <string name="fragment_3_hide_button_text">Свернуть банер</string>
+    <string name="cold_water_text">Холодная вода</string>
+    <string name="cold_water_counter_number_text">121545451</string>
+    <string name="alarm_text">Необходимо подать показания до 25.03.18</string>
+    <string name="electro_alarm_text">Показания сданы 16.02.18 и будут учтены при следующем расчете 25.02.18</string>
+    <string name="hot_water_text">Горячая вода</string>
+    <string name="hot_water_counter_number_text">5545684</string>
+    <string name="electro_name_text">Электроэнергия</string>
+    <string name="electro_counter_number_text">45458</string>
+    <string name="picture_1_text">Картинка 1</string>
+    <string name="picture_2_text">Картинка 2</string>
+    <string name="picture_3_text">Картинка 3</string>
+</resources>
+

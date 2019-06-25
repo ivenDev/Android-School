@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPaleGreyTwo">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarFragment2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/MyToolbarTheme"
+        app:title="@string/toolbar_fragment_3_title"
+        />
+
+    <Button
+        android:id="@+id/buttonShowBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginEnd="79dp"
+        android:textAllCaps="false"
+        android:background="@color/colorTealishTwo"
+        style="@style/MyTextTheme"
+        android:text="@string/fragment_3_show_button_text"
+        />
+
+    <Button
+        android:id="@+id/buttonHideBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:layout_marginTop="70dp"
+        android:layout_marginStart="79dp"
+        android:layout_marginEnd="79dp"
+        android:textAllCaps="false"
+        android:background="@color/colorTealishTwo"
+        android:textColor="@color/colorCharcoalGrey"
+        android:visibility="gone"
+        android:text="@string/fragment_3_hide_button_text" />
+
+    <FrameLayout
+        android:id="@+id/frameLayoutPagerFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="39dp">
+
+    </FrameLayout>
+
+
+</LinearLayout>

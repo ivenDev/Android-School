@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/colorTealishTwo</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="colorCharcoalGrey">#363742</color>
+    <color name="colorTealishTwo">#32c7cd</color>
+    <color name="colorPinkishGrey">#c1c1c1</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorPaleGreyTwo">#f2f5f6</color>
+    <color name="colorPaleGrey">#f3f5f6</color>
+    <color name="colorGreyishBrownThree">#3f3f3f</color>
+    <color name="colorCoral">#ff4242</color>
+
+</resources>

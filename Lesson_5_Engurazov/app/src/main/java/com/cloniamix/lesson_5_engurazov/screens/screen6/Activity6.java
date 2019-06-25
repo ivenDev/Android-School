@@ -8,13 +8,9 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cloniamix.lesson_5_engurazov.POJO.ProposedService;
 import com.cloniamix.lesson_5_engurazov.R;
 import com.cloniamix.lesson_5_engurazov.screens.screen6.adapter.MyPagerAdapter;
@@ -87,27 +83,4 @@ public class Activity6 extends AppCompatActivity {
     private void showSnackbar(View view, ProposedService proposedService){
         Snackbar.make(view, proposedService.getName(),Snackbar.LENGTH_SHORT).show();
     }
-
-   /* private ArrayList<ImageView> getViews(){
-
-        ArrayList<ImageView> imageViews = new ArrayList<>();
-        LayoutInflater inflater = LayoutInflater.from(this);
-        for (String url: getImageUrls()){
-
-            View page =  inflater.inflate(R.layout.image_view, null, false);
-            ImageView view = page.findViewById(R.id.imageView);
-            Glide.with(this)
-                    .load(url)
-                    .centerCrop()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .placeholder(getResources().getDrawable(R.drawable.ic_crop))
-                    .into(view);
-            imageViews.add(view);
-        }
-
-        return imageViews;
-    }*/
-
-
 }
