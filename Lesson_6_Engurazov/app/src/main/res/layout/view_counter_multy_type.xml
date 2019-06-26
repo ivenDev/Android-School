@@ -65,16 +65,81 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewIcon">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutMorningReadings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/morning_readings_hint_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextMorningReadings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number" />
+
+                <!--<com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextNightReadings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:hint="@string/night_readings_hint_text"
+                    />
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPeakReadings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:hint="@string/peak_readings_hint_text"/>-->
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutNightReadings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/night_readings_hint_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextNightReadings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutPeakReadings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/peak_readings_hint_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPeakReadings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!--<EditText
                 android:id="@+id/editTextMorningReadings"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="number"
-                android:hint="@string/morning_readings_hint_text" />
+                android:hint="@string/morning_readings_hint_text" />-->
 
-            <EditText
+            <!--<EditText
                 android:id="@+id/editTextNightReadings"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -88,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:inputType="number"
-                android:hint="@string/peak_readings_hint_text" />
+                android:hint="@string/peak_readings_hint_text" />-->
 
             <ImageView
                 android:id="@+id/imageViewSend"
@@ -96,6 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="22dp"
                 android:layout_marginEnd="16dp"
+                android:layout_gravity="center"
                 android:background="@color/colorTealishTwo"
                 android:paddingStart="10dp"
                 android:paddingTop="8.7dp"
