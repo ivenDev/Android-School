@@ -86,28 +86,26 @@ public class CounterViewHolder extends RecyclerView.ViewHolder {
             textViewAlarmHint.setText(alarmText);
 
         } else {
-
-            // FIXME: 26.06.2019 выделить даты жирным шрифтом
-            String alarmDay = counter.getAlarmDay();
-            String readingPassedDay = counter.getReadingPassedDay();
-
-            SpannableString strAlarmDay = new SpannableString(alarmDay);
-            strAlarmDay.setSpan(new StyleSpan(Typeface.BOLD), 0, alarmDay.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-            SpannableString strReadingDay = new SpannableString(readingPassedDay);
-            strReadingDay.setSpan(new StyleSpan(Typeface.BOLD), 0, readingPassedDay.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-
-            String text = itemView.getResources().getString(R.string.readings_passed_alarm_text)
+            String text = itemView.getResources().getString(R.string.readings_passed_alarm_text)//16
                     + " "
-                    + strReadingDay
+                    + counter.getReadingPassedDay()
                     + " "
                     + itemView.getResources().getString(R.string.calculation_alarm_text)
                     + " "
-                    + strAlarmDay;
+                    + counter.getAlarmDay();
 
+            SpannableString strText = new SpannableString(text);
 
-            textViewAlarmHint.setText(text);
+            strText.setSpan(new StyleSpan(Typeface.BOLD)
+                    ,16
+                    ,24
+                    , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            strText.setSpan(new StyleSpan(Typeface.BOLD)
+                    ,62
+                    ,70
+                    , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            textViewAlarmHint.setText(strText);
         }
     }
 
