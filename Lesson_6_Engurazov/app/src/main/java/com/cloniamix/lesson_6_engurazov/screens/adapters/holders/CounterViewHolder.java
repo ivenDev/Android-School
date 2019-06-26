@@ -13,7 +13,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CounterMultiTypeViewHolder extends RecyclerView.ViewHolder {
+public class CounterViewHolder extends RecyclerView.ViewHolder {
 
     private ImageView imageViewIcon;
     private TextView textViewCounterName;
@@ -30,7 +30,7 @@ public class CounterMultiTypeViewHolder extends RecyclerView.ViewHolder {
     private TextInputLayout textInputLayoutNightReadings;
     private TextInputLayout textInputLayoutPeakReadings;
 
-    public CounterMultiTypeViewHolder(@NonNull View itemView) {
+    public CounterViewHolder(@NonNull View itemView) {
         super(itemView);
         imageViewIcon = itemView.findViewById(R.id.imageViewIcon);
         textViewCounterName = itemView.findViewById(R.id.textViewCounterName);
@@ -67,7 +67,18 @@ public class CounterMultiTypeViewHolder extends RecyclerView.ViewHolder {
         imageViewIcon.setImageResource(counter.getIconResId());
         textViewCounterName.setText(counter.getCounterName());
         textViewCounterNumber.setText(counter.getCounterNumber());
-        textViewAlarmHint.setText(counter.getAlarmText());
+        if (counter.isAlarm()){
+            textViewAlarmHint.setCompoundDrawables(itemView.getResources().getDrawable(R.drawable.ic_alert)
+                    ,null
+                    ,null
+                    ,null);
+            /*textViewAlarmHint.setCompoundDrawablePadding(7);*/
+            textViewAlarmHint.setTextColor(itemView.getResources().getColor(R.color.colorCoral));
+            textViewAlarmHint.setText(counter.getAlarmText());
+
+        } else {
+            textViewAlarmHint.setText(counter.getAlarmText());
+        }
     }
 
     private String[] getCounterReadingsList(){

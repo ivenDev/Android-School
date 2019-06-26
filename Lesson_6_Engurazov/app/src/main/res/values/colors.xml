@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">@color/colorTealishTwo</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">@color/colorTealishTwo</color>
 
     <color name="colorCharcoalGrey">#363742</color>
     <color name="colorTealishTwo">#32c7cd</color>

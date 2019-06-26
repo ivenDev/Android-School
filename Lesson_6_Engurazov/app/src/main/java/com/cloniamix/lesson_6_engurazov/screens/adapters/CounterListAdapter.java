@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import com.cloniamix.lesson_6_engurazov.screens.fragments.Fragment2;
 import com.cloniamix.lesson_6_engurazov.POJO.Counter;
 import com.cloniamix.lesson_6_engurazov.R;
-import com.cloniamix.lesson_6_engurazov.screens.adapters.holders.CounterMultiTypeViewHolder;
+import com.cloniamix.lesson_6_engurazov.screens.adapters.holders.CounterViewHolder;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CounterListAdapter extends RecyclerView.Adapter<CounterMultiTypeViewHolder> {
+public class CounterListAdapter extends RecyclerView.Adapter<CounterViewHolder> {
 
     private ArrayList<Counter> counters;
     private Fragment2.OnFragment2InteractionListener listener;
@@ -26,16 +26,16 @@ public class CounterListAdapter extends RecyclerView.Adapter<CounterMultiTypeVie
 
     @NonNull
     @Override
-    public CounterMultiTypeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CounterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.view_counter_multy_type, parent, false);
+                .inflate(R.layout.view_counter_details, parent, false);
 
-        return new CounterMultiTypeViewHolder(view);
+        return new CounterViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CounterMultiTypeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CounterViewHolder holder, int position) {
         holder.bind(counters.get(position), listener);
     }
 
