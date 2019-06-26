@@ -2,6 +2,7 @@ package com.cloniamix.lesson_6_engurazov.screens.adapters.holders;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +22,7 @@ public class CounterViewHolder extends RecyclerView.ViewHolder {
     private EditText editTextMorningReadings;
     private EditText editTextNightReadings;
     private EditText editTextPeakReadings;
-    private ImageView imageButtonViewSend;
+    private ImageButton imageButtonViewSend;
     private TextView textViewAlarmHint;
     private ImageView imageViewInfo;
     private ImageView imageViewMore;
