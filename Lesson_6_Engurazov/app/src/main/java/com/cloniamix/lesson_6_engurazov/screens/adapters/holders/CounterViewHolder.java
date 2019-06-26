@@ -21,7 +21,7 @@ public class CounterViewHolder extends RecyclerView.ViewHolder {
     private EditText editTextMorningReadings;
     private EditText editTextNightReadings;
     private EditText editTextPeakReadings;
-    private ImageView imageViewSend;
+    private ImageView imageButtonViewSend;
     private TextView textViewAlarmHint;
     private ImageView imageViewInfo;
     private ImageView imageViewMore;
@@ -38,7 +38,7 @@ public class CounterViewHolder extends RecyclerView.ViewHolder {
         editTextMorningReadings = itemView.findViewById(R.id.editTextMorningReadings);
         editTextNightReadings = itemView.findViewById(R.id.editTextNightReadings);
         editTextPeakReadings = itemView.findViewById(R.id.editTextPeakReadings);
-        imageViewSend = itemView.findViewById(R.id.imageViewSend);
+        imageButtonViewSend = itemView.findViewById(R.id.imageButtonViewSend);
         textViewAlarmHint = itemView.findViewById(R.id.textViewAlarmHint);
         imageViewInfo = itemView.findViewById(R.id.imageViewInfo);
         imageViewMore = itemView.findViewById(R.id.imageViewMore);
@@ -55,9 +55,9 @@ public class CounterViewHolder extends RecyclerView.ViewHolder {
             textInputLayoutPeakReadings.setVisibility(View.GONE);
 
             textInputLayoutMorningReadings.setHint(itemView.getResources().getString(R.string.new_readings_hint_text));
-            imageViewSend.setOnClickListener(v -> listener.onSendCounterReadingsClick(itemView, getCounterReading()));
+            imageButtonViewSend.setOnClickListener(v -> listener.onSendCounterReadingsClick(itemView, getCounterReading()));
         } else {
-            imageViewSend.setOnClickListener(v -> listener.onSendCounterMorningNightPeakReadingsClick(itemView, getCounterReadingsList()));
+            imageButtonViewSend.setOnClickListener(v -> listener.onSendCounterMorningNightPeakReadingsClick(itemView, getCounterReadingsList()));
         }
 
 
@@ -68,11 +68,11 @@ public class CounterViewHolder extends RecyclerView.ViewHolder {
         textViewCounterName.setText(counter.getCounterName());
         textViewCounterNumber.setText(counter.getCounterNumber());
         if (counter.isAlarm()){
-            textViewAlarmHint.setCompoundDrawables(itemView.getResources().getDrawable(R.drawable.ic_alert)
+            textViewAlarmHint.setCompoundDrawablesWithIntrinsicBounds(itemView.getResources().getDrawable(R.drawable.ic_alert)
                     ,null
                     ,null
                     ,null);
-            /*textViewAlarmHint.setCompoundDrawablePadding(7);*/
+            textViewAlarmHint.setCompoundDrawablePadding(7);
             textViewAlarmHint.setTextColor(itemView.getResources().getColor(R.color.colorCoral));
             textViewAlarmHint.setText(counter.getAlarmText());
 
