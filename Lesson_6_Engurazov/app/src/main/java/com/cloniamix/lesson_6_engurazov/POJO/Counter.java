@@ -8,7 +8,9 @@ public class Counter {
     private int iconResId;
     private boolean singleType;
     private boolean alarm;
-    private String alarmText;
+    private String alarmDay;
+    private String readingPassedDay;
+    /*private int alarmTextResId;*/
 
 
     //region constructor, getters & setters
@@ -18,14 +20,32 @@ public class Counter {
             , int iconResId
             , boolean singleType
             , boolean alarm
-            , String alarmText) {
+            , String alarmDay) {
 
         this.counterName = counterName;
         this.counterNumber = counterNumber;
         this.iconResId = iconResId;
         this.singleType = singleType;
         this.alarm = alarm;
-        this.alarmText = alarmText;
+        this.alarmDay = alarmDay;
+        /*this.alarmTextResId = alarmTextResId;*/
+    }
+    public Counter(String counterName
+            , String counterNumber
+            , int iconResId
+            , boolean singleType
+            , boolean alarm
+            , String alarmDay
+            , String readingPassedDay) {
+
+        this.counterName = counterName;
+        this.counterNumber = counterNumber;
+        this.iconResId = iconResId;
+        this.singleType = singleType;
+        this.alarm = alarm;
+        this.alarmDay = alarmDay;
+        this.readingPassedDay = readingPassedDay;
+        /*this.alarmTextResId = alarmTextResId;*/
     }
 
     public String getCounterName() {
@@ -48,8 +68,17 @@ public class Counter {
         return alarm;
     }
 
-    public String getAlarmText() {
-        return alarmText;
+    public String getAlarmDay() {
+        return alarmDay;
     }
+
+    public String getReadingPassedDay() {
+        return readingPassedDay;
+    }
+
+
+    /*public int getAlarmTextResId() {
+        return alarmTextResId;
+    }*/
     //endregion
 }

@@ -1,5 +1,9 @@
 package com.cloniamix.lesson_6_engurazov.screens.adapters.holders;
 
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -68,6 +72,7 @@ public class CounterViewHolder extends RecyclerView.ViewHolder {
         imageViewIcon.setImageResource(counter.getIconResId());
         textViewCounterName.setText(counter.getCounterName());
         textViewCounterNumber.setText(counter.getCounterNumber());
+
         if (counter.isAlarm()){
             textViewAlarmHint.setCompoundDrawablesWithIntrinsicBounds(itemView.getResources().getDrawable(R.drawable.ic_alert)
                     ,null
@@ -75,10 +80,34 @@ public class CounterViewHolder extends RecyclerView.ViewHolder {
                     ,null);
             textViewAlarmHint.setCompoundDrawablePadding(7);
             textViewAlarmHint.setTextColor(itemView.getResources().getColor(R.color.colorCoral));
-            textViewAlarmHint.setText(counter.getAlarmText());
+            String alarmText = itemView.getResources().getString(R.string.alarm_text)
+                    + " "
+                    + counter.getAlarmDay();
+            textViewAlarmHint.setText(alarmText);
 
         } else {
-            textViewAlarmHint.setText(counter.getAlarmText());
+
+            // FIXME: 26.06.2019 выделить даты жирным шрифтом
+            String alarmDay = counter.getAlarmDay();
+            String readingPassedDay = counter.getReadingPassedDay();
+
+            SpannableString strAlarmDay = new SpannableString(alarmDay);
+            strAlarmDay.setSpan(new StyleSpan(Typeface.BOLD), 0, alarmDay.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            SpannableString strReadingDay = new SpannableString(readingPassedDay);
+            strReadingDay.setSpan(new StyleSpan(Typeface.BOLD), 0, readingPassedDay.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+            String text = itemView.getResources().getString(R.string.readings_passed_alarm_text)
+                    + " "
+                    + strReadingDay
+                    + " "
+                    + itemView.getResources().getString(R.string.calculation_alarm_text)
+                    + " "
+                    + strAlarmDay;
+
+
+            textViewAlarmHint.setText(text);
         }
     }
 

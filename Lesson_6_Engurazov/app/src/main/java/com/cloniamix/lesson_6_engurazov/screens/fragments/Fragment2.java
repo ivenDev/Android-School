@@ -90,16 +90,16 @@ public class Fragment2 extends Fragment {
                 ,R.drawable.ic_water_cold
                 ,true
                 ,true
-                ,getString(R.string.alarm_text)
-        ));
+                ,getString(R.string.alarm_day_text))
+        );
         counters.add(new Counter(
                 getString(R.string.hot_water_text)
                 ,getString(R.string.hot_water_counter_number_text)
                 ,R.drawable.ic_water_hot
                 ,true
                 ,true
-                ,getString(R.string.alarm_text)
-        ));
+                ,getString(R.string.alarm_day_text))
+        );
 
 
         counters.add(new Counter(
@@ -108,8 +108,9 @@ public class Fragment2 extends Fragment {
                 ,R.drawable.ic_electro_copy
                 ,false
                 ,false
-                ,getString(R.string.electro_alarm_text)
-        ));
+                ,getString(R.string.alarm_day_text)
+                ,getString(R.string.reading_passed_day_text))
+        );
 
         return counters;
     }

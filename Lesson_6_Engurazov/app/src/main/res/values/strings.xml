@@ -33,8 +33,13 @@
     <string name="fragment_3_hide_button_text">Свернуть банер</string>
     <string name="cold_water_text">Холодная вода</string>
     <string name="cold_water_counter_number_text">121545451</string>
-    <string name="alarm_text">Необходимо подать показания до 25.03.18</string>
-    <string name="electro_alarm_text">Показания сданы 16.02.18 и будут учтены при следующем расчете 25.02.18</string>
+
+    <string name="alarm_text">Необходимо подать показания до </string>
+    <string name="readings_passed_alarm_text">Показания сданы</string>
+    <string name="calculation_alarm_text"> и будут учтены при следующем расчете</string>
+    <string name="alarm_day_text">25.02.18</string>
+    <string name="reading_passed_day_text">16.02.18</string>
+
     <string name="hot_water_text">Горячая вода</string>
     <string name="hot_water_counter_number_text">5545684</string>
     <string name="electro_name_text">Электроэнергия</string>
