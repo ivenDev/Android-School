@@ -86,7 +86,7 @@ public class CounterViewHolder extends RecyclerView.ViewHolder {
             textViewAlarmHint.setText(alarmText);
 
         } else {
-            String text = itemView.getResources().getString(R.string.readings_passed_alarm_text)//16
+            String text = itemView.getResources().getString(R.string.readings_passed_alarm_text)
                     + " "
                     + counter.getReadingPassedDay()
                     + " "
@@ -96,13 +96,24 @@ public class CounterViewHolder extends RecyclerView.ViewHolder {
 
             SpannableString strText = new SpannableString(text);
 
+            int firstStartBold = itemView.getResources().getString(R.string.readings_passed_alarm_text).length()
+                    + 1;
+            int firstEndBold = firstStartBold + counter.getReadingPassedDay().length();
+
+
+            int secondStartBold = firstEndBold
+                    + itemView.getResources().getString(R.string.calculation_alarm_text).length()
+                    + 1;
+            int secondEndBold = secondStartBold + counter.getAlarmDay().length();
+
+
             strText.setSpan(new StyleSpan(Typeface.BOLD)
-                    ,16
-                    ,24
+                    ,firstStartBold
+                    ,firstEndBold
                     , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             strText.setSpan(new StyleSpan(Typeface.BOLD)
-                    ,62
-                    ,70
+                    ,secondStartBold
+                    ,secondEndBold
                     , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
             textViewAlarmHint.setText(strText);
