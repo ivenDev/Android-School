@@ -35,7 +35,10 @@ class BridgeDetailsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_bridge_details)
 
         val bridge: Bridge = intent.getParcelableExtra(DATA_KEY)
+        updateUi(bridge)
+    }
 
+    private fun updateUi(bridge: Bridge){
         textViewBridgeName.text = bridge.name
         textViewTime.text = Utils.getStringDivorceTime(bridge.divorces)
         setStatusIconResId(Utils.getBridgeStatus(bridge.divorces))
@@ -45,12 +48,19 @@ class BridgeDetailsActivity : AppCompatActivity() {
         } else {
             textViewDescription.text = Html.fromHtml(bridge.description)
         }
+        setBridgePhoto(bridge)
+    }
+
+    private fun setBridgePhoto(bridge: Bridge){
+        var bridgePhoto: String
+        if(Utils.getBridgeStatus(bridge.divorces) == STATUS_LATE) bridgePhoto = bridge.photoClose
+        else bridgePhoto = bridge.photoOpen
 
         Glide.with(this)
-                .load("$BASE_URL/${bridge.photoClose}")
-                .centerCrop()
-                .placeholder(R.drawable.ic_no_content)
-                .into(imageViewBridgePhoto)
+            .load("$BASE_URL/$bridgePhoto")
+            .centerCrop()
+            .placeholder(R.drawable.ic_no_content)
+            .into(imageViewBridgePhoto)
 
     }
 
