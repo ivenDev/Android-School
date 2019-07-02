@@ -7,6 +7,19 @@
         android:layout_height="match_parent"
         tools:context=".screens.screenbridgelist.MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/title_text"
+        app:titleTextColor="@color/colorWhite">
+
+    </androidx.appcompat.widget.Toolbar>
+
 
     <ProgressBar
             android:id="@+id/progressBar"
@@ -19,7 +32,14 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewBridgeList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:id="@+id/recyclerViewBridgeList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_16"
+        android:paddingEnd="@dimen/padding_16"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

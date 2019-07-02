@@ -18,16 +18,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MyListener {
 
-    var disposable: Disposable? = null
+    private var disposable: Disposable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        title = getString(R.string.title_text)
-
         showProgress(true)
-
         getBridgeListFromApi()
 
     }
@@ -43,13 +40,12 @@ class MainActivity : AppCompatActivity(), MyListener {
 
     private fun getBridgeListFromApi(){
         disposable = BridgeApiService.getClient.getBridges()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(this::updateUi)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::updateUi)
     }
 
     private fun updateUi(bridges: Bridges){
-
         showProgress(false)
         recyclerViewBridgeList.layoutManager = LinearLayoutManager(this)
         recyclerViewBridgeList.adapter = BridgesAdapter(bridges.objects, this)

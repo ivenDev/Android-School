@@ -4,7 +4,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-
 @Parcelize
 data class Bridge(@SerializedName("description") val description: String,
                   @SerializedName("description_eng") val descriptionEng: String,
