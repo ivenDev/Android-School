@@ -34,6 +34,8 @@ class BridgeDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bridge_details)
 
+        toolbarBridgeDetail.setNavigationOnClickListener{ onBackPressed() }
+
         val bridge: Bridge = intent.getParcelableExtra(DATA_KEY)
         updateUi(bridge)
     }

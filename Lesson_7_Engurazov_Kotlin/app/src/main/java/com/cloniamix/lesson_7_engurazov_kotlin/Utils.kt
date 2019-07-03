@@ -16,6 +16,8 @@ class Utils {
         const val STATUS_SOON: Int = 2 //мост скоро разведется
         const val STATUS_LATE: Int = 3 // мост разведен
 
+        private const val HOUR_IN_MILLIS = 3600000
+
 
         fun log(message: String) {
             Log.d(APP_TAG, message)
@@ -52,7 +54,7 @@ class Utils {
                 endTime.timeInMillis = divorce.end.time
                 endTime.set(currentTime[Calendar.YEAR], currentTime[Calendar.MONTH], currentTime[Calendar.DATE])
 
-                if (startTime.timeInMillis - currentTime.timeInMillis in 0..3600000)
+                if (bridgeStatus!= STATUS_LATE && startTime.timeInMillis - currentTime.timeInMillis in 0..HOUR_IN_MILLIS)
                     bridgeStatus = STATUS_SOON
 
                 if (currentTime.after(startTime) && currentTime.before(endTime))
