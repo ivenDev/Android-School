@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">@color/colorMangoTwo</color>
+    <color name="colorPrimaryDark">@color/colorMango</color>
+    <color name="colorAccent">@color/colorMangoTwo</color>
+
+
+
+    <color name="colorMango">#f99d26</color>
+    <color name="colorMangoTwo">#feb92d</color>
+    <color name="colorBlack87">#000000</color>
+    <color name="colorWarmGreyThree">#747474</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorWarmGreyFour">#757575</color>
+    <color name="colorBlack54">#8a000000</color>
+
+
+
+</resources>

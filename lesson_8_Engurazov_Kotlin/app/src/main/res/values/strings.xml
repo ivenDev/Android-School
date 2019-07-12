@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Lesson_8_Engurazov_kotlin</string>
+    <string name="empty_list_text">Заметок пока нет</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="toolbar_main_screen_title_text">Заметки</string>
+    <string name="note_header_hint_text">Заголовок</string>
+    <string name="note_text_hint_text">Текст заметки</string>
+    <string name="menu_item_search_text">Поиск</string>
+    <string name="menu_item_set_color_text">Выбрать цвет</string>
+    <string name="color_dialog_title_text">Выберите цвет</string>
+    <string name="dialog_button_ok_text">Ok</string>
+    <string name="toast_save_text">Запись сохранена</string>
+    <string name="main_activity_dialog_message_text">Выберите действие</string>
+    <string name="main_activity_dialog_positiv_button_text">Архивировать</string>
+    <string name="main_dialog_negativ_button_text">Удалить</string>
+    <string name="note_text">Заметка</string>
+    <string name="note_delet_text">удалена</string>
+    <string name="in_archive_text">в архиве</string>
+
+    <string-array name="colorList">
+        <item name="white">#ffffff</item>
+        <item name="lipstick">#e51c23</item>
+        <item name="lipstick_two">#e91e63</item>
+        <item name="barney">#9c27b0</item>
+        <item name="bluey_purple">#673ab7</item>
+        <item name="lightish_blue">#5677fc</item>
+        <item name="azure">#02a9f4</item>
+        <item name="turquoise_blue">#00bcd4</item>
+        <item name="teal">#009788</item>
+        <item name="booger">#8cc34a</item>
+        <item name="sickly_yellow">#cddc38</item>
+        <item name="sunshine_yellow">#ffeb3c</item>
+        <item name="marigold">#fec10a</item>
+        <item name="orange_red">#ff5623</item>
+        <item name="warm_grey_five">#9e9e9e</item>
+        <item name="blue_grey">#607d8b</item>
+    </string-array>
+</resources>
