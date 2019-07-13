@@ -1,13 +1,12 @@
-package com.cloniamix.lesson_9_engurazov_kotlin
+package com.cloniamix.lesson_9_engurazov_kotlin.services
 
 import android.app.Service
 import android.content.Intent
-import android.icu.util.TimeUnit
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
+import com.cloniamix.lesson_9_engurazov_kotlin.ServiceCallbacks
 import com.cloniamix.lesson_9_engurazov_kotlin.network.WeatherApiClient
-import com.cloniamix.lesson_9_engurazov_kotlin.network.pojo.CityWeather
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

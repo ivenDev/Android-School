@@ -1,9 +1,7 @@
 package com.cloniamix.lesson_9_engurazov_kotlin
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
@@ -11,12 +9,27 @@ import android.text.format.DateFormat
 import android.util.Log
 import android.widget.Toast
 import com.cloniamix.lesson_9_engurazov_kotlin.network.pojo.CityWeather
+import com.cloniamix.lesson_9_engurazov_kotlin.services.DownloadService
+import com.cloniamix.lesson_9_engurazov_kotlin.services.WeatherService
 import kotlinx.android.synthetic.main.activity_main.*
+import android.content.IntentFilter
+import android.content.Intent
+import android.content.BroadcastReceiver
 
 class MainActivity : AppCompatActivity(), ServiceCallbacks{
 
+    companion object {
+        const val MY_ACTION = "com.cloniamix.lesson_9_engurazov_kotlin.TEST_ACTION"
+    }
+
     private var weatherService: WeatherService? = null
     private var isBound = false
+
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            Log.d("MyTAG", "onReceive!  ${intent.getStringExtra("TEST")}")
+        }
+    }
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -37,11 +50,15 @@ class MainActivity : AppCompatActivity(), ServiceCallbacks{
 
         toolbarMainActivity.inflateMenu(R.menu.main_menu)
         toolbarMainActivity.setOnMenuItemClickListener {
-            if (it.itemId == R.id.itemDownload) {Toast.makeText(this, "download", Toast.LENGTH_SHORT).show()}
+            if (it.itemId == R.id.itemDownload) {
+                startDownloadService()
+                Toast.makeText(this, "download", Toast.LENGTH_SHORT).show()}
             true
         }
-    }
 
+        val intFilter = IntentFilter(MY_ACTION)
+        registerReceiver(broadcastReceiver, intFilter)
+    }
 
     override fun onStart() {
         super.onStart()
@@ -58,13 +75,29 @@ class MainActivity : AppCompatActivity(), ServiceCallbacks{
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(broadcastReceiver)
+    }
+
     private fun updateUi(cityWeather: CityWeather){
         textViewCityName.text = cityWeather.name
-        val temp = "${cityWeather.main.temp} C"//fixme: добавить знак градусов
+        val temp = "${cityWeather.main.temp} C"
         textViewTemperature.text = temp
 
         val dateString = DateFormat.format("HH.mm.ss", System.currentTimeMillis()).toString()
         textViewTime.text = dateString
+    }
+
+    private fun startDownloadService(){
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            startForegroundService(DownloadService.createStartIntent(this))
+        } else{
+            startService(DownloadService.createStartIntent(this))
+        }
+
+
     }
 
 
