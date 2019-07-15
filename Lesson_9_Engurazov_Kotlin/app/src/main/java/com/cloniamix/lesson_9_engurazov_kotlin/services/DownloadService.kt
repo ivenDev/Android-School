@@ -5,17 +5,15 @@ import android.content.Intent
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import android.content.Context
-import com.cloniamix.lesson_9_engurazov_kotlin.MainActivity
-import com.cloniamix.lesson_9_engurazov_kotlin.network.WeatherApiClient
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
+import android.util.Log
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 
 class DownloadService : Service() {
-
-    private var disposable: Disposable? = null
 
     companion object {
         fun createStartIntent(context: Context): Intent{
@@ -26,25 +24,9 @@ class DownloadService : Service() {
     override fun onCreate() {
         super.onCreate()
         val channelId = "com.cloniamix.lesson_9_engurazov_kotlin.services"
-        /*val notificationManager = initNotificationManager(this, channelId)*/
         val notificationBuilder = createNotificationBuilder(this, channelId)
         startForeground(1, notificationBuilder.build())
     }
-
-    /*private fun initNotificationManager(context: Context, channelId: String): NotificationManager {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                "Заголовок канала",
-                NotificationManager.IMPORTANCE_LOW
-            )
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager!!.createNotificationChannel(channel)
-            return notificationManager
-        } else {
-            return getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        }
-    }*/
 
     private fun createNotificationBuilder(context: Context, channelId: String): NotificationCompat.Builder {
         val builder = NotificationCompat.Builder(context, channelId)
@@ -58,7 +40,7 @@ class DownloadService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        some()
+        download()
         return START_REDELIVER_INTENT
     }
 
@@ -66,18 +48,47 @@ class DownloadService : Service() {
         return null
     }
 
-    private fun some() {
 
-        //todo: реализовать загрузку архива и его распаковку
-        disposable = WeatherApiClient.getClient.getWeather()
-            .subscribeOn(Schedulers.io())
-            .delay(10, TimeUnit.SECONDS)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{t -> val intent = Intent(MainActivity.MY_ACTION)
-        intent.putExtra("TEST", "Привет из сервиса ${t.name}")
-        sendBroadcast(intent)
-        stopSelf()}
+
+    //todo: реализовать загрузку архива и его распаковку
+    private fun download() {
+        val file = File(this.filesDir, "test.mp4")
+
+        val url = URL("http://commonsware.com/misc/test.mp4")
+
+        Thread(Runnable {
+            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+            connection.requestMethod = "GET"
+            connection.connect()
+
+            if (connection.responseCode != HttpURLConnection.HTTP_OK) {
+                Log.d("MyTAG", "Server returned HTTP " + connection.responseCode
+                        + " " + connection.responseCode)
+
+            }
+
+            val fos: FileOutputStream = FileOutputStream(file)
+            val inputStream: InputStream = connection.inputStream
+
+
+
+
+            val buffer = ByteArray(1024)
+            var count: Int
+            while ((count = inputStream.read(buffer)) != -1){ //fixme: !!! выдает ошибку!!!
+                fos.write(buffer,0,count)
+            }
+
+            //вариант на Java
+            /*byte[] buffer = new byte[1024];//Set buffer type
+                int len1 = 0;//init length
+                while ((len1 = is.read(buffer)) != -1) {
+                    fos.write(buffer, 0, len1);//Write new file
+                }*/
+        })
+
+
+
 
     }
-
 }

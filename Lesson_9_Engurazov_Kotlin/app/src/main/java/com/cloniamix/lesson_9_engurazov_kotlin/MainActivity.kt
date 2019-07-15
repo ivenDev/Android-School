@@ -90,14 +90,11 @@ class MainActivity : AppCompatActivity(), ServiceCallbacks{
     }
 
     private fun startDownloadService(){
-
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             startForegroundService(DownloadService.createStartIntent(this))
         } else{
             startService(DownloadService.createStartIntent(this))
         }
-
-
     }
 
 
