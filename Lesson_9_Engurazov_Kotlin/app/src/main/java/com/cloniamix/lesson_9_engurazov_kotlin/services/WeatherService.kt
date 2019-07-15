@@ -14,6 +14,10 @@ import io.reactivex.schedulers.Schedulers
 
 class WeatherService : Service() {
 
+    companion object {
+        private const val INTERVAL: Long = 60
+    }
+
     inner class MyBinder : Binder(){
         fun getService(): WeatherService
         {
@@ -37,7 +41,7 @@ class WeatherService : Service() {
 
         getWeather()
 
-        observable = Observable.interval(10, java.util.concurrent.TimeUnit.SECONDS)
+        observable = Observable.interval(INTERVAL, java.util.concurrent.TimeUnit.SECONDS)
             .subscribe{ getWeather() }
         return binder
     }

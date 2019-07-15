@@ -15,6 +15,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.content.IntentFilter
 import android.content.Intent
 import android.content.BroadcastReceiver
+import com.bumptech.glide.Glide
+import java.io.File
 
 class MainActivity : AppCompatActivity(), ServiceCallbacks{
 
@@ -27,7 +29,31 @@ class MainActivity : AppCompatActivity(), ServiceCallbacks{
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            Log.d("MyTAG", "onReceive!  ${intent.getStringExtra("TEST")}")
+            var progressText = ""
+            if (intent.hasExtra("progress")){
+                progressText = "Progress: " + intent.getIntExtra("progress",0) + "%"
+            }
+            if (intent.hasExtra("unzip")){
+                progressText = intent.getStringExtra("unzip")
+            }
+            if (intent.hasExtra("finish")){
+                progressText = intent.getStringExtra("finish")
+
+                Log.d("MyTAG", progressText + filesDir.name )
+
+                val image = File(filesDir, progressText)
+
+                Glide.with(this@MainActivity)
+                    .load(image)
+                    .placeholder(R.drawable.ic_crop_original)
+                    .centerCrop()
+                    .into(imageView)
+            }
+
+            Log.d("MyTAG", progressText)
+            textViewProgress.text = progressText
+
+
         }
     }
 

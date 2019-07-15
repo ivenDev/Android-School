@@ -6,11 +6,11 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import android.content.Context
 import android.util.Log
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
+import com.cloniamix.lesson_9_engurazov_kotlin.MainActivity
+import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.zip.ZipInputStream
 
 
 class DownloadService : Service() {
@@ -49,46 +49,92 @@ class DownloadService : Service() {
     }
 
 
-
-    //todo: реализовать загрузку архива и его распаковку
     private fun download() {
-        val file = File(this.filesDir, "test.mp4")
-
-        val url = URL("http://commonsware.com/misc/test.mp4")
 
         Thread(Runnable {
-            val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
-            connection.requestMethod = "GET"
-            connection.connect()
+            val zipFile = downloadZipFile()
 
-            if (connection.responseCode != HttpURLConnection.HTTP_OK) {
-                Log.d("MyTAG", "Server returned HTTP " + connection.responseCode
-                        + " " + connection.responseCode)
+            var intent = Intent(MainActivity.MY_ACTION)
+            intent.putExtra("unzip", "Распаковка..." )
+            sendBroadcast(intent)
 
-            }
+            val unzipFile = unzip(zipFile)
 
-            val fos: FileOutputStream = FileOutputStream(file)
-            val inputStream: InputStream = connection.inputStream
+            intent = Intent(MainActivity.MY_ACTION)
+            intent.putExtra("finish", unzipFile.name)
+            sendBroadcast(intent)
 
+            stopSelf()
 
+        }).start()
 
+    }
 
+    private fun unzip(zipFile: File): File {
+        val fileInputStream = FileInputStream(zipFile)
+        val unzipFile = File(this.filesDir, "pic_unzip.jpg")
+        val outputStream = FileOutputStream(unzipFile)
+        val zipInputStream = ZipInputStream(BufferedInputStream(fileInputStream))
+
+        while (zipInputStream.nextEntry != null) {
             val buffer = ByteArray(1024)
-            var count: Int
-            while ((count = inputStream.read(buffer)) != -1){ //fixme: !!! выдает ошибку!!!
-                fos.write(buffer,0,count)
+
+            var count: Int = zipInputStream.read(buffer)
+            while (count > -1) {
+                outputStream.write(buffer, 0, count)
+                count = zipInputStream.read(buffer)
             }
-
-            //вариант на Java
-            /*byte[] buffer = new byte[1024];//Set buffer type
-                int len1 = 0;//init length
-                while ((len1 = is.read(buffer)) != -1) {
-                    fos.write(buffer, 0, len1);//Write new file
-                }*/
-        })
+            outputStream.close()
+            zipInputStream.closeEntry()
+        }
 
 
+        zipInputStream.close()
+        fileInputStream.close()
+
+        return unzipFile
+    }
+
+    private fun downloadZipFile(): File {
+
+        val zipFile = File(this.filesDir, "pic_zip.zip")
+
+        val url = URL("https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/roTxWVw6YODhvQ")
+        val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
+        connection.requestMethod = "GET"
+        connection.connect()
+
+        val fileSize = connection.contentLength
+
+        if (connection.responseCode != HttpURLConnection.HTTP_OK) {
+            Log.d(
+                "MyTAG", "Server returned HTTP " + connection.responseCode
+                        + " " + connection.responseCode
+            )
+
+        }
+
+        val fos = FileOutputStream(zipFile)
+        val inputStream: InputStream = connection.inputStream
 
 
+        val buffer = ByteArray(1024)
+        var count: Int = inputStream.read(buffer)
+        var total: Long = 0
+        while (count != -1) {
+            total += count
+
+            val intent = Intent(MainActivity.MY_ACTION)
+            intent.putExtra("progress", ((total * 100) / fileSize))
+            sendBroadcast(intent)
+
+            fos.write(buffer, 0, count)
+            count = inputStream.read(buffer)
+        }
+
+        fos.close()
+        inputStream.close()
+
+        return zipFile
     }
 }
