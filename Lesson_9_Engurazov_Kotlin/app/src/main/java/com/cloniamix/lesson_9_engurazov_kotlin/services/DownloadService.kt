@@ -19,6 +19,8 @@ class DownloadService : Service() {
         fun createStartIntent(context: Context): Intent{
             return Intent(context, DownloadService::class.java)
         }
+
+        private const val FILE_URL = "https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/BBShXKYqarmCFw"
     }
 
     override fun onCreate() {
@@ -99,7 +101,7 @@ class DownloadService : Service() {
 
         val zipFile = File(this.filesDir, "pic_zip.zip")
 
-        val url = URL("https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/roTxWVw6YODhvQ")
+        val url = URL(FILE_URL)
         val connection: HttpURLConnection = url.openConnection() as HttpURLConnection
         connection.requestMethod = "GET"
         connection.connect()
@@ -108,33 +110,31 @@ class DownloadService : Service() {
 
         if (connection.responseCode != HttpURLConnection.HTTP_OK) {
             Log.d(
-                "MyTAG", "Server returned HTTP " + connection.responseCode
-                        + " " + connection.responseCode
-            )
+                "MyTAG", "Server returned HTTP " + connection.responseCode)
 
+        }else {
+            val fos = FileOutputStream(zipFile)
+
+            val inputStream: InputStream = connection.inputStream
+
+
+            val buffer = ByteArray(1024)
+            var count: Int = inputStream.read(buffer)
+            var total: Long = 0
+            while (count != -1) {
+                total += count
+
+                val intent = Intent(MainActivity.MY_ACTION)
+                intent.putExtra("progress", ((total * 100) / fileSize))//fixme: формула расчета процентов
+                sendBroadcast(intent)
+
+                fos.write(buffer, 0, count)
+                count = inputStream.read(buffer)
+            }
+
+            fos.close()
+            inputStream.close()
         }
-
-        val fos = FileOutputStream(zipFile)
-        val inputStream: InputStream = connection.inputStream
-
-
-        val buffer = ByteArray(1024)
-        var count: Int = inputStream.read(buffer)
-        var total: Long = 0
-        while (count != -1) {
-            total += count
-
-            val intent = Intent(MainActivity.MY_ACTION)
-            intent.putExtra("progress", ((total * 100) / fileSize))
-            sendBroadcast(intent)
-
-            fos.write(buffer, 0, count)
-            count = inputStream.read(buffer)
-        }
-
-        fos.close()
-        inputStream.close()
-
         return zipFile
     }
 }
