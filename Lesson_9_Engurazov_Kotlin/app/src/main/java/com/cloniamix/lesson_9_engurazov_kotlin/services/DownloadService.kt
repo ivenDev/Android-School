@@ -1,11 +1,11 @@
 package com.cloniamix.lesson_9_engurazov_kotlin.services
 
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.os.IBinder
-import androidx.core.app.NotificationCompat
-import android.content.Context
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import com.cloniamix.lesson_9_engurazov_kotlin.MainActivity
 import java.io.*
 import java.net.HttpURLConnection
@@ -121,11 +121,17 @@ class DownloadService : Service() {
             val buffer = ByteArray(1024)
             var count: Int = inputStream.read(buffer)
             var total: Long = 0
+            Log.d("LES","size: $fileSize")
             while (count != -1) {
+                Log.d("LES","count: $count")
                 total += count
+                Log.d("LES","total: $total")
+                Log.d("LES","perc : " + ((total * 100) / fileSize))
 
                 val intent = Intent(MainActivity.MY_ACTION)
-                intent.putExtra("progress", ((total * 100) / fileSize))//fixme: формула расчета процентов
+
+                val perc = ((total * 100) / fileSize);
+                intent.putExtra("progress", perc)//fixme: формула расчета процентов
                 sendBroadcast(intent)
 
                 fos.write(buffer, 0, count)

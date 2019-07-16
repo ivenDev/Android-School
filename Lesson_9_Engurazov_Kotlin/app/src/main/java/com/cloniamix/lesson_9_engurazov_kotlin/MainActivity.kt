@@ -2,20 +2,17 @@ package com.cloniamix.lesson_9_engurazov_kotlin
 
 import android.content.*
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.text.format.DateFormat
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.cloniamix.lesson_9_engurazov_kotlin.network.pojo.CityWeather
 import com.cloniamix.lesson_9_engurazov_kotlin.services.DownloadService
 import com.cloniamix.lesson_9_engurazov_kotlin.services.WeatherService
 import kotlinx.android.synthetic.main.activity_main.*
-import android.content.IntentFilter
-import android.content.Intent
-import android.content.BroadcastReceiver
-import com.bumptech.glide.Glide
 import java.io.File
 
 class MainActivity : AppCompatActivity(), ServiceCallbacks{
@@ -31,7 +28,7 @@ class MainActivity : AppCompatActivity(), ServiceCallbacks{
         override fun onReceive(context: Context, intent: Intent) {
             var progressText = ""
             if (intent.hasExtra("progress")){
-                progressText = "Progress: " + intent.getIntExtra("progress",0) + "%"
+                progressText = "Progress: " + intent.getLongExtra("progress",0L) + "%"
             }
             if (intent.hasExtra("unzip")){
                 progressText = intent.getStringExtra("unzip")
