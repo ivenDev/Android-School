@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lesson_10_Engurazov_Kotlin</string>
+    <string name="title_text">The Most SPB</string>
+    <string name="view_error_text">Ошибка загрузки данных</string>
+</resources>
