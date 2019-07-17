@@ -61,3 +61,8 @@ android {
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha02'
     }
 }
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+}

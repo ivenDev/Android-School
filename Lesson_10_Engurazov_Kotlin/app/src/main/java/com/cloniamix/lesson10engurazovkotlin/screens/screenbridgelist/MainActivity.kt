@@ -1,13 +1,17 @@
 package com.cloniamix.lesson10engurazovkotlin.screens.screenbridgelist
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cloniamix.lesson10engurazovkotlin.R
 import com.cloniamix.lesson10engurazovkotlin.network.BridgeApiService
 import com.cloniamix.lesson10engurazovkotlin.pojo.Bridge
 import com.cloniamix.lesson10engurazovkotlin.pojo.Bridges
 import com.cloniamix.lesson10engurazovkotlin.screens.screenbridgedetails.BridgeDetailsActivity
+import com.cloniamix.lesson10engurazovkotlin.screens.screenbridgeinmap.MapActivity
 import com.cloniamix.lesson10engurazovkotlin.screens.screenbridgelist.adapter.BridgesAdapter
 import com.cloniamix.lesson10engurazovkotlin.utils.MyListener
 import com.cloniamix.lesson10engurazovkotlin.utils.Utils
@@ -23,9 +27,9 @@ class MainActivity : AppCompatActivity(), MyListener {
         private const val FLAG_ERROR = 2
         private const val FLAG_PROGRESS = 3
 
-        /*fun createStartIntent(context: Context, bridge: Bridge): Intent {
+        fun createStartIntent(context: Context): Intent {
             return Intent(context, MainActivity::class.java)
-        }*/
+        }
     }
 
     private var disposable: Disposable? = null
@@ -35,9 +39,16 @@ class MainActivity : AppCompatActivity(), MyListener {
         setContentView(R.layout.activity_main)
 
         swipeRefresh.setOnRefreshListener { getBridgeListFromApi() }
-
-        //fixme: не работает listener
         imageViewRefresh.setOnClickListener { refreshUi() }
+
+        toolbar.inflateMenu(R.menu.map_menu)
+        toolbar.setOnMenuItemClickListener {
+            if (it.itemId == R.id.itemMap){
+                startActivity(MapActivity.createStartIntent(this))
+                Toast.makeText(this,"MenuItem Map: clicked",Toast.LENGTH_SHORT).show()
+            }
+            true
+        }
 
         showView(FLAG_PROGRESS)
         getBridgeListFromApi()
