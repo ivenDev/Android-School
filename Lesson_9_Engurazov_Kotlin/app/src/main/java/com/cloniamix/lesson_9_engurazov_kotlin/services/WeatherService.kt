@@ -15,12 +15,11 @@ import io.reactivex.schedulers.Schedulers
 class WeatherService : Service() {
 
     companion object {
-        private const val INTERVAL: Long = 60
+        private const val INTERVAL: Long = 10
     }
 
-    inner class MyBinder : Binder(){
-        fun getService(): WeatherService
-        {
+    inner class MyBinder : Binder() {
+        fun getService(): WeatherService {
             return this@WeatherService
         }
     }
@@ -41,8 +40,6 @@ class WeatherService : Service() {
 
         getWeather()
 
-        observable = Observable.interval(INTERVAL, java.util.concurrent.TimeUnit.SECONDS)
-            .subscribe{ getWeather() }
         return binder
     }
 
@@ -51,22 +48,28 @@ class WeatherService : Service() {
         disposable?.dispose()
         observable?.dispose()
         return super.onUnbind(intent)
-
     }
 
-    fun setCallbacks(callbacks: ServiceCallbacks?){
+    fun setCallbacks(callbacks: ServiceCallbacks?) {
         serviceCallbacks = callbacks
     }
 
-
-    private fun getWeather(){
+    private fun getWeather() {
         Log.d("MyTAG", "getWeather called")
-        disposable = WeatherApiClient.getClient.getWeather()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe( { t1 -> serviceCallbacks?.setWeather(t1)},
-                { t -> serviceCallbacks?.error(t.message) } )
 
+        observable = Observable
+            .interval(0, INTERVAL, java.util.concurrent.TimeUnit.SECONDS)
+            .flatMap { WeatherApiClient.getClient.getWeather().toObservable() }
+            .subscribeOn(Schedulers.io())
+            /*.onExceptionResumeNext { getWeather() }*/
+            .observeOn(AndroidSchedulers.mainThread())
+
+            .subscribe({ weather -> serviceCallbacks?.setWeather(weather) },
+                { error -> serviceCallbacks?.error(error.message) })
+    }
+
+    fun refreshData() {
+        getWeather()
     }
 
 }

@@ -2,23 +2,21 @@ package com.cloniamix.lesson_9_engurazov_kotlin
 
 import android.content.*
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.text.format.DateFormat
 import android.util.Log
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.cloniamix.lesson_9_engurazov_kotlin.network.pojo.CityWeather
 import com.cloniamix.lesson_9_engurazov_kotlin.services.DownloadService
 import com.cloniamix.lesson_9_engurazov_kotlin.services.WeatherService
 import kotlinx.android.synthetic.main.activity_main.*
-import android.content.IntentFilter
-import android.content.Intent
-import android.content.BroadcastReceiver
-import com.bumptech.glide.Glide
 import java.io.File
 
-class MainActivity : AppCompatActivity(), ServiceCallbacks{
+class MainActivity : AppCompatActivity(), ServiceCallbacks {
 
     companion object {
         const val MY_ACTION = "com.cloniamix.lesson_9_engurazov_kotlin.TEST_ACTION"
@@ -29,32 +27,39 @@ class MainActivity : AppCompatActivity(), ServiceCallbacks{
 
     private val broadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            var progressText = ""
-            if (intent.hasExtra("progress")){
-                progressText = "Progress: " + intent.getIntExtra("progress",0) + "%"
-            }
-            if (intent.hasExtra("unzip")){
-                progressText = intent.getStringExtra("unzip")
-            }
-            if (intent.hasExtra("finish")){
-                progressText = intent.getStringExtra("finish")
-
-                Log.d("MyTAG", progressText + filesDir.name )
-
-                val image = File(filesDir, progressText)
-
-                Glide.with(this@MainActivity)
-                    .load(image)
-                    .placeholder(R.drawable.ic_crop_original)
-                    .centerCrop()
-                    .into(imageView)
-            }
-
-            Log.d("MyTAG", progressText)
-            textViewProgress.text = progressText
-
-
+            setProgressStatus(intent)
         }
+    }
+
+    private fun setProgressStatus(intent: Intent) {
+        var progressText = ""
+        if (intent.hasExtra(DownloadService.STATUS_PROGRESS)) {
+            progressText = "Progress: " + intent.getLongExtra(DownloadService.STATUS_PROGRESS, 0) + "%"
+        }
+        if (intent.hasExtra(DownloadService.STATUS_UNZIP)) {
+            progressText = intent.getStringExtra(DownloadService.STATUS_UNZIP)
+        }
+
+        if (intent.hasExtra(DownloadService.STATUS_ERROR)) {
+            progressText = intent.getStringExtra(DownloadService.STATUS_ERROR)
+        }
+
+        if (intent.hasExtra(DownloadService.STATUS_FINISH)) {
+            progressText = intent.getStringExtra(DownloadService.STATUS_FINISH)
+
+            Log.d("MyTAG", progressText + filesDir.name)
+
+            val image = File(filesDir, progressText)
+
+            Glide.with(this@MainActivity)
+                .load(image)
+                .placeholder(R.drawable.ic_crop_original)
+                .centerCrop()
+                .into(imageView)
+        }
+
+        Log.d("MyTAG", progressText)
+        textViewProgress.text = progressText
     }
 
     private val serviceConnection = object : ServiceConnection {
@@ -74,11 +79,14 @@ class MainActivity : AppCompatActivity(), ServiceCallbacks{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        buttonRefresh.setOnClickListener { weatherService?.refreshData() }
+
         toolbarMainActivity.inflateMenu(R.menu.main_menu)
         toolbarMainActivity.setOnMenuItemClickListener {
             if (it.itemId == R.id.itemDownload) {
                 startDownloadService()
-                Toast.makeText(this, "download", Toast.LENGTH_SHORT).show()}
+                Toast.makeText(this, getString(R.string.download_start_toast_text), Toast.LENGTH_SHORT).show()
+            }
             true
         }
 
@@ -94,7 +102,7 @@ class MainActivity : AppCompatActivity(), ServiceCallbacks{
 
     override fun onStop() {
         super.onStop()
-        if (isBound){
+        if (isBound) {
             weatherService?.setCallbacks(null)
             unbindService(serviceConnection)
             isBound = false
@@ -106,7 +114,7 @@ class MainActivity : AppCompatActivity(), ServiceCallbacks{
         unregisterReceiver(broadcastReceiver)
     }
 
-    private fun updateUi(cityWeather: CityWeather){
+    private fun updateUi(cityWeather: CityWeather) {
         textViewCityName.text = cityWeather.name
         val temp = "${cityWeather.main.temp} C"
         textViewTemperature.text = temp
@@ -115,10 +123,10 @@ class MainActivity : AppCompatActivity(), ServiceCallbacks{
         textViewTime.text = dateString
     }
 
-    private fun startDownloadService(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+    private fun startDownloadService() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(DownloadService.createStartIntent(this))
-        } else{
+        } else {
             startService(DownloadService.createStartIntent(this))
         }
     }
@@ -126,10 +134,26 @@ class MainActivity : AppCompatActivity(), ServiceCallbacks{
 
     override fun setWeather(cityWeather: CityWeather) {
         Log.d("MyTAG", "MainActivity: ${cityWeather.name}")
+        showWhenError(false)
         updateUi(cityWeather)
     }
 
     override fun error(message: String?) {
         Log.d("MyTAG", "MainActivity: $message")
+        showWhenError(true)
+    }
+
+    private fun showWhenError(isError: Boolean) {
+        when (isError) {
+            true -> {
+                linearLayoutWeatherContainer.visibility = View.GONE
+                buttonRefresh.visibility = View.VISIBLE
+            }
+            false -> {
+                linearLayoutWeatherContainer.visibility = View.VISIBLE
+                buttonRefresh.visibility = View.GONE
+            }
+        }
+
     }
 }

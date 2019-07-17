@@ -2,4 +2,8 @@
     <string name="app_name">Lesson_9_Engurazov_Kotlin</string>
     <string name="text_view_time_hint_text">Время обновления</string>
     <string name="menu_item_download_text">Скачать</string>
+    <string name="notification_title_text">Lesson 9</string>
+    <string name="notification_content_text">Download...</string>
+    <string name="download_start_toast_text">Start download</string>
+    <string name="refresh_button_text">Обновить</string>
 </resources>
