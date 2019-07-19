@@ -20,4 +20,76 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <ProgressBar
+            android:id="@+id/progressBarMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    <LinearLayout
+            android:id="@+id/layoutErrorMap"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+
+        <ImageView
+                android:id="@+id/imageViewRefreshMap"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                app:srcCompat="@drawable/ic_autorenew_black_24dp"
+                android:background="?android:attr/selectableItemBackground"/>
+
+        <TextView
+                android:id="@+id/textViewErrorMap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_16"
+                style="@style/HeaderTextTheme"
+                android:gravity="center"
+                android:text="@string/view_error_text"
+
+        />
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/linearLayoutMapContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbarMap"
+    >
+        <fragment
+                android:id="@+id/fragmentMap"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                tools:context=".screens.screenbridgeinmap.MapActivity"/>
+
+        <include layout="@layout/view_bridge_item"
+                 android:id="@+id/view"
+                 android:visibility="gone"
+                 app:layout_constraintTop_toBottomOf="@id/linearLayoutMapContainer"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintBottom_toBottomOf="parent"
+                 app:layout_constraintVertical_bias="1.0"/>
+    </LinearLayout>
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

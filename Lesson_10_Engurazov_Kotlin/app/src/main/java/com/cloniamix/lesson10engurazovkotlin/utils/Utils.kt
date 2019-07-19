@@ -29,22 +29,23 @@ class Utils {
             else view.visibility = View.GONE
         }
 
-        fun getStringDivorceTime(divorceTimesList: List<Divorce>): String{
+        fun getStringDivorceTime(divorceTimesList: List<Divorce>): String {
             val formatter = SimpleDateFormat("h:mm")
             var divorceTime = ""
-            for (divorce in divorceTimesList){
-                divorceTime = divorceTime +  formatter.format(divorce.start) + " - " + formatter.format(divorce.end) + "  "
+            for (divorce in divorceTimesList) {
+                divorceTime =
+                    divorceTime + formatter.format(divorce.start) + " - " + formatter.format(divorce.end) + "  "
             }
             return divorceTime
         }
 
-        fun getBridgeStatus(divorceTimesList: List<Divorce>): Int{
+        fun getBridgeStatus(divorceTimesList: List<Divorce>): Int {
 
             var bridgeStatus = STATUS_NORMAL
 
             val currentTime = Calendar.getInstance()
 
-            for (divorce in divorceTimesList){
+            for (divorce in divorceTimesList) {
 
                 val startTime: Calendar = Calendar.getInstance()
                 startTime.timeInMillis = divorce.start.time
@@ -54,7 +55,7 @@ class Utils {
                 endTime.timeInMillis = divorce.end.time
                 endTime.set(currentTime[Calendar.YEAR], currentTime[Calendar.MONTH], currentTime[Calendar.DATE])
 
-                if (bridgeStatus!= STATUS_LATE && startTime.timeInMillis - currentTime.timeInMillis in 0..HOUR_IN_MILLIS)
+                if (bridgeStatus != STATUS_LATE && startTime.timeInMillis - currentTime.timeInMillis in 0..HOUR_IN_MILLIS)
                     bridgeStatus = STATUS_SOON
 
                 if (currentTime.after(startTime) && currentTime.before(endTime))

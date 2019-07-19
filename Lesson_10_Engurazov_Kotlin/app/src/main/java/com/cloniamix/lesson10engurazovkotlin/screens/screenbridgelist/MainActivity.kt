@@ -43,9 +43,9 @@ class MainActivity : AppCompatActivity(), MyListener {
 
         toolbar.inflateMenu(R.menu.map_menu)
         toolbar.setOnMenuItemClickListener {
-            if (it.itemId == R.id.itemMap){
+            if (it.itemId == R.id.itemMap) {
                 startActivity(MapActivity.createStartIntent(this))
-                Toast.makeText(this,"MenuItem Map: clicked",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "MenuItem Map: clicked", Toast.LENGTH_SHORT).show()
             }
             true
         }

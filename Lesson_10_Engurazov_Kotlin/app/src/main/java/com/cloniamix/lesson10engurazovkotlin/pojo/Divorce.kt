@@ -6,6 +6,8 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
-data class Divorce(@SerializedName("end") val end: Date,
-                   @SerializedName("id") val id: Int,
-                   @SerializedName("start") val start: Date) : Parcelable
+data class Divorce(
+    @SerializedName("end") val end: Date,
+    @SerializedName("id") val id: Int,
+    @SerializedName("start") val start: Date
+) : Parcelable
