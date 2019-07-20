@@ -27,10 +27,10 @@
         <activity
                 android:name=".screens.screenbridgedetails.BridgeDetailsActivity"
                 android:theme="@style/BridgeDetailTheme"/>
-        <!--todo: скрыть ключ -->
+
         <meta-data
                 android:name="com.google.android.geo.API_KEY"
-                android:value="AIzaSyDsbX46-no173qrfVji0RJi9DxvxBQOzGY"/>
+                android:value="@string/GOOGLE_MAP_KEY"/>
     </application>
 
 </manifest>

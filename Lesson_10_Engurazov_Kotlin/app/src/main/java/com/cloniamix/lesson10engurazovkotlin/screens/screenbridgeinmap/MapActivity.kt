@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -25,12 +26,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.view_bridge_item.view.*
 
-// todo: проверить все по разрешениям
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     companion object {
@@ -122,39 +123,77 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_png))
         )
         map?.moveCamera(CameraUpdateFactory.newLatLng(saintPetersburg))
-        map?.setMinZoomPreference(6.0f)
-        map?.setMaxZoomPreference(30.0f)
+        map?.setMinZoomPreference(4.0f)
+        map?.setMaxZoomPreference(20.0f)
         map?.uiSettings?.isZoomControlsEnabled = true
         map?.uiSettings?.isZoomGesturesEnabled = true
 
         map?.setOnMarkerClickListener { marker ->
-
-            val bridge = bridges[marker.tag as Int]
-
-            view.visibility = View.VISIBLE
-
-            view.setOnClickListener { startActivity(BridgeDetailsActivity.createStartIntent(this, bridge)) }
-            view.textViewBridgeName.text = bridge.name
-            view.textViewTime.text = Utils.getStringDivorceTime(bridge.divorces)
-            view.imageViewStatusIcon.setImageResource(setStatusIconResId(Utils.getBridgeStatus(bridge.divorces)))
-
+            showBridgeInfoByMarker(marker)
             false
         }
 
         map?.setOnMapClickListener { view.visibility = View.GONE }
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED
-        ) {
-            map?.isMyLocationEnabled = true
-        } else {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_CODE_PERMISSION
-            )
+        checkPermissions()
+
+    }
+
+    private fun checkPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                map?.isMyLocationEnabled = true
+            } else {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    showPermissionsSnackbar()
+                } else {
+                    setPermissionsRequest()
+                }
+            }
         }
     }
+
+    private fun showBridgeInfoByMarker(marker: Marker) {
+        val bridge = bridges[marker.tag as Int]
+
+        view.visibility = View.VISIBLE
+
+        view.setOnClickListener { startActivity(BridgeDetailsActivity.createStartIntent(this, bridge)) }
+        view.textViewBridgeName.text = bridge.name
+        view.textViewTime.text = Utils.getStringDivorceTime(bridge.divorces)
+        view.imageViewStatusIcon.setImageResource(setStatusIconResId(Utils.getBridgeStatus(bridge.divorces)))
+    }
+
+    //fixme: получить местоположение сразу после получения permissions
+    /*override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_CODE_PERMISSION -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                map?.isMyLocationEnabled = true
+            }
+        }
+    }*/
+
+    private fun showPermissionsSnackbar() {
+        val snackbar = Snackbar.make(view, getString(R.string.snackbar_permissions_text), Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction("Ok") {
+            snackbar.dismiss()
+            setPermissionsRequest()
+        }
+            .show()
+    }
+
+    private fun setPermissionsRequest() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            REQUEST_CODE_PERMISSION
+        )
+    }
+
 
     private fun refreshUi() {
         showView(FLAG_PROGRESS)

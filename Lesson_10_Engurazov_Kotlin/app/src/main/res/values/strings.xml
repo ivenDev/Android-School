@@ -4,4 +4,7 @@
     <string name="view_error_text">Ошибка загрузки данных</string>
     <string name="list_menu_item_text">Список</string>
     <string name="map_menu_item_text">Карта</string>
+    <string name="snackbar_permissions_text">Данные геолокации нужны для определения вашего местоположения. Нам нужно
+        Ваше разрешение :)
+    </string>
 </resources>
