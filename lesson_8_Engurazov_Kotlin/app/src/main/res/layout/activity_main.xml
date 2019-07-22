@@ -21,6 +21,12 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <ViewFlipper
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+    </ViewFlipper>
+
 
     <ProgressBar
             android:id="@+id/progressBar"
