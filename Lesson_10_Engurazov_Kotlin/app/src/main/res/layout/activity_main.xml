@@ -8,79 +8,76 @@
         tools:context=".screens.screenbridgelist.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/title_text"
-        app:titleTextColor="@color/colorWhite">
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/title_text"
+            app:titleTextColor="@color/colorWhite">
 
     </androidx.appcompat.widget.Toolbar>
 
-
-    <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyle"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-    <LinearLayout
-            android:id="@+id/layoutError"
+    <ViewFlipper
+            android:id="@+id/viewFlipperBridgeList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-
-        <ImageView
-                android:id="@+id/imageViewRefresh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                app:srcCompat="@drawable/ic_autorenew_black_24dp"
-                android:background="?android:attr/selectableItemBackground"/>
-
-        <TextView
-                android:id="@+id/textViewError"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding_16"
-                style="@style/HeaderTextTheme"
-                android:gravity="center"
-                android:text="@string/view_error_text"
-
-        />
-    </LinearLayout>
-
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefresh"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/progressBar"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewBridgeList"
-                android:layout_width="match_parent"
+        <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="@dimen/padding_16"
-                android:paddingEnd="@dimen/padding_16"/>
+                android:layout_gravity="center"
+                style="?android:attr/progressBarStyle"/>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <LinearLayout
+                android:id="@+id/layoutError"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+
+            <ImageView
+                    android:id="@+id/imageViewRefresh"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    app:srcCompat="@drawable/ic_autorenew_black_24dp"
+                    android:background="?android:attr/selectableItemBackground"/>
+
+            <TextView
+                    android:id="@+id/textViewError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_16"
+                    style="@style/HeaderTextTheme"
+                    android:gravity="center"
+                    android:text="@string/view_error_text"
+
+            />
+        </LinearLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewBridgeList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_16"
+                    android:paddingEnd="@dimen/padding_16"/>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </ViewFlipper>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

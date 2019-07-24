@@ -23,9 +23,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), MyListener {
 
     companion object {
-        private const val FLAG_DATA = 1
-        private const val FLAG_ERROR = 2
-        private const val FLAG_PROGRESS = 3
+        private const val FLAG_PROGRESS = 0
+        private const val FLAG_ERROR = 1
+        private const val FLAG_DATA = 2
 
         fun createStartIntent(context: Context): Intent {
             return Intent(context, MainActivity::class.java)
@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity(), MyListener {
         toolbar.setOnMenuItemClickListener {
             if (it.itemId == R.id.itemMap) {
                 startActivity(MapActivity.createStartIntent(this))
-                Toast.makeText(this, "MenuItem Map: clicked", Toast.LENGTH_SHORT).show()
             }
             true
         }
@@ -91,25 +90,6 @@ class MainActivity : AppCompatActivity(), MyListener {
     }
 
     private fun showView(flag: Int) {
-
-        when (flag) {
-            FLAG_DATA -> {
-                Utils.setViewVisible(progressBar, false)
-                Utils.setViewVisible(recyclerViewBridgeList, true)
-                Utils.setViewVisible(layoutError, false)
-            }
-
-            FLAG_ERROR -> {
-                Utils.setViewVisible(progressBar, false)
-                Utils.setViewVisible(recyclerViewBridgeList, false)
-                Utils.setViewVisible(layoutError, true)
-            }
-
-            FLAG_PROGRESS -> {
-                Utils.setViewVisible(progressBar, true)
-                Utils.setViewVisible(recyclerViewBridgeList, false)
-                Utils.setViewVisible(layoutError, false)
-            }
-        }
+        viewFlipperBridgeList.displayedChild = flag
     }
 }

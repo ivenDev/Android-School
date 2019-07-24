@@ -23,12 +23,6 @@ class Utils {
             Log.d(APP_TAG, message)
         }
 
-        fun setViewVisible(view: View?, show: Boolean) {
-            if (view == null) return
-            if (show) view.visibility = View.VISIBLE
-            else view.visibility = View.GONE
-        }
-
         fun getStringDivorceTime(divorceTimesList: List<Divorce>): String {
             val formatter = SimpleDateFormat("h:mm")
             var divorceTime = ""

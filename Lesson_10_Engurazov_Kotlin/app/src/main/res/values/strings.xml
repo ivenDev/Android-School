@@ -7,4 +7,6 @@
     <string name="snackbar_permissions_text">Данные геолокации нужны для определения вашего местоположения. Нам нужно
         Ваше разрешение :)
     </string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for core functionality.</string>
+    <string name="settings">Настройки</string>
 </resources>
