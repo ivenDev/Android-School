@@ -2,11 +2,20 @@ package com.cloniamix.lesson11engurazovkotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("05.05", 40))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("16.05", 30))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("18.05", 90))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("20.05", 60))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("21.05", 50))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("22.05", 10))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("23.05", 70))
     }
 }
