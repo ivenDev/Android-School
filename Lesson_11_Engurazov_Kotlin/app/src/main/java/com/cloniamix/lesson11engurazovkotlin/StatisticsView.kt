@@ -1,5 +1,6 @@
 package com.cloniamix.lesson11engurazovkotlin
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
@@ -9,6 +10,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.util.TypedValue
+import android.view.MotionEvent
 import kotlin.collections.ArrayList
 
 
@@ -17,7 +19,7 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
     private var dateColor: Int
     private var columnColor: Int
 
-    /*private var animator: ValueAnimator? = null*/
+    private var animation: ValueAnimator? = null
 
     private val maxColumnsCount = 9
 
@@ -25,10 +27,10 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5.toFloat(), resources.displayMetrics)
 
     private lateinit var textPaint: Paint
-    var textBounds = Rect()
+    private var textBounds = Rect()
 
     private val statistics: ArrayList<DayStatistic> = ArrayList()
-
+    private val animatedValues: ArrayList<Int> = ArrayList()
 
     init {
         val a: TypedArray = context.theme.obtainStyledAttributes(
@@ -50,7 +52,7 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
     private fun init() {
         textPaint = Paint()
 
-        val spSize = 16
+        val spSize = 11
         val scaledSizeInPixels = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_SP,
             spSize.toFloat(), resources.displayMetrics
@@ -58,15 +60,23 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
         textPaint.textSize = scaledSizeInPixels
     }
 
-    // Добавляет новый показатель дня, если колличество показателей не превышает максимальное количество,
-    // иначе удаляет первый элемент, а затем добавляет новый
-    // и перерисовывает вью
+    /**
+     * Добавляет новый показатель дня в список статистики по дням, если колличество показателей не превышает максимальное количество,
+     * иначе удаляет первый элемент, а затем добавляет новый
+     * и перерисовывает вью
+     *
+     * @param dayStatistic Экземпляр класса DayStatistic с данными даты и значением показателя в этот день
+     *
+     */
     fun setDayStatistic(dayStatistic: DayStatistic) {
         if (statistics.size < maxColumnsCount) {
             statistics.add(dayStatistic)
+            animatedValues.add(dayStatistic.statisticValue)
         } else {
             statistics.remove(statistics[0])
+            animatedValues.remove(animatedValues[0])
             statistics.add(dayStatistic)
+            animatedValues.add(dayStatistic.statisticValue)
         }
 
         invalidate()
@@ -109,17 +119,13 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
             val index = statistics.indexOf(dayStatistic)
             textPaint.flags = Paint.ANTI_ALIAS_FLAG
             textPaint.color = dateColor
-            val spSize = 11
-            val scaledSizeInPixels = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_SP,
-                spSize.toFloat(), resources.displayMetrics
-            )
-            textPaint.textSize = scaledSizeInPixels
+
             textPaint.textAlign = Paint.Align.LEFT
             val fm = textPaint.fontMetrics
             val horizontalIndent: Float =
                 (width - (statistics.size * textBounds.width())) / (statistics.size + 1).toFloat()
 
+            // Рисует дату
             canvas?.drawText(
                 dayStatistic.date,
                 horizontalIndent + index * (horizontalIndent + textBounds.width()),
@@ -127,18 +133,19 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
                 textPaint
             )
 
-
-            val dpSize = 4
-            val valueInDp = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                statistics[index].statisticValue.toFloat(),
-                resources.displayMetrics
-            )
-            val scaledSizeInDp =
-                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpSize.toFloat(), resources.displayMetrics)
-            textPaint.strokeWidth = scaledSizeInDp
+            val lineWidth = 4
+            val lineWidthInDp =
+                TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, lineWidth.toFloat(), resources.displayMetrics)
+            textPaint.strokeWidth = lineWidthInDp
             textPaint.color = columnColor
 
+            val valueInDp: Float = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                animatedValues[index].toFloat(),
+                resources.displayMetrics
+            )
+
+            //Рисует столбик
             canvas?.drawLine(
                 horizontalIndent + textBounds.width() / 2 + index * (horizontalIndent + textBounds.width()),
                 height - (textBounds.height() + fm.descent + 2 * verticalIndent),
@@ -147,9 +154,9 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
                 textPaint
             )
 
-            /* textPaint.color = columnColor*/
             textPaint.textAlign = Paint.Align.CENTER
 
+            //Рисует значение
             canvas?.drawText(
                 "${statistics[index].statisticValue}",
                 horizontalIndent + textBounds.width() / 2 + index * (horizontalIndent + textBounds.width()),
@@ -159,6 +166,52 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
         }
     }
 
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return when (event?.action) {
+            MotionEvent.ACTION_DOWN -> true
+            MotionEvent.ACTION_UP -> {
+                startMyAnimate()
+                true
+            }
+            else -> {
+                false
+            }
+        }
+    }
+
+    /**
+     * Метод запуска анимации
+     */
+    fun startMyAnimate() {
+        toggleMyAnimation()
+        invalidate()
+    }
+
+    private fun toggleMyAnimation() {
+        if (animation != null) {
+            animation?.cancel()
+            animation = null
+        } else {
+            for (s in statistics) {
+                animation = ValueAnimator.ofInt(0, s.statisticValue)
+                animation?.duration = 1000
+                animation?.addUpdateListener {
+                    val index = statistics.indexOf(s)
+                    animatedValues[index] = it.animatedValue as Int
+                    invalidate()
+                }
+                animation?.start()
+            }
+
+        }
+    }
+
+    /**
+     * Класс статистики дня
+     *
+     * @param date Дата в формате String
+     * @param statisticValue Значение показателя в этот день
+     **/
     data class DayStatistic(
         val date: String,
         val statisticValue: Int

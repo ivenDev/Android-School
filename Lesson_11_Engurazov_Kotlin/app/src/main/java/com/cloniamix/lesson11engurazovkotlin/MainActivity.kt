@@ -10,12 +10,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        statisticsView.setDayStatistic(StatisticsView.DayStatistic("05.05", 40))
-        statisticsView.setDayStatistic(StatisticsView.DayStatistic("16.05", 30))
-        statisticsView.setDayStatistic(StatisticsView.DayStatistic("18.05", 90))
-        statisticsView.setDayStatistic(StatisticsView.DayStatistic("20.05", 60))
-        statisticsView.setDayStatistic(StatisticsView.DayStatistic("21.05", 50))
-        statisticsView.setDayStatistic(StatisticsView.DayStatistic("22.05", 10))
-        statisticsView.setDayStatistic(StatisticsView.DayStatistic("23.05", 70))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("05.05", (Math.random()*100).toInt()))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("16.05", (Math.random()*100).toInt()))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("18.05", (Math.random()*100).toInt()))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("20.05", (Math.random()*100).toInt()))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("21.05", (Math.random()*100).toInt()))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("22.05", (Math.random()*100).toInt()))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("23.05", (Math.random()*100).toInt()))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("25.05", (Math.random()*100).toInt()))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("26.05", (Math.random()*100).toInt()))
+        statisticsView.setDayStatistic(StatisticsView.DayStatistic("29.05", (Math.random()*100).toInt()))
+
+        statisticsView.setOnClickListener { statisticsView.startMyAnimate() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        statisticsView.startMyAnimate()
     }
 }
