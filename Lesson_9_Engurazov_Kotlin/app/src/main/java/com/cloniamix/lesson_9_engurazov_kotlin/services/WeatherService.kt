@@ -61,7 +61,6 @@ class WeatherService : Service() {
             .interval(0, INTERVAL, java.util.concurrent.TimeUnit.SECONDS)
             .flatMap { WeatherApiClient.getClient.getWeather().toObservable() }
             .subscribeOn(Schedulers.io())
-            /*.onExceptionResumeNext { getWeather() }*/
             .observeOn(AndroidSchedulers.mainThread())
 
             .subscribe({ weather -> serviceCallbacks?.setWeather(weather) },

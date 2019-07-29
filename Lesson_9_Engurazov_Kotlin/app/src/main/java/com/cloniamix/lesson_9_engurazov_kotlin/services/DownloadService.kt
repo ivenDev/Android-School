@@ -10,6 +10,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.annotation.AnyThread
 import androidx.annotation.RequiresApi
+import androidx.annotation.WorkerThread
 import androidx.core.app.NotificationCompat
 import com.cloniamix.lesson_9_engurazov_kotlin.MainActivity
 import com.cloniamix.lesson_9_engurazov_kotlin.R
@@ -51,8 +52,6 @@ class DownloadService : Service() {
         val notificationBuilder = createNotificationBuilder(this, CHANNEL_ID)
         startForeground(1, notificationBuilder.build())
 
-
-        /*initNotificationManager(this, channelId)*/
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -62,21 +61,6 @@ class DownloadService : Service() {
         notificationManager.createNotificationChannel(channel)
     }
 
-
-    /*private fun initNotificationManager(context: Context, channelId: String): NotificationManager {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                "Заголовок канала",
-                NotificationManager.IMPORTANCE_LOW
-            )
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager!!.createNotificationChannel(channel)
-            return notificationManager
-        } else {
-            return getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        }
-    }*/
 
     private fun createNotificationBuilder(context: Context, channelId: String): NotificationCompat.Builder {
         val builder = NotificationCompat.Builder(context, channelId)
@@ -111,7 +95,7 @@ class DownloadService : Service() {
             .subscribe({ stopSelf() }, { stopSelf() })
     }
 
-    @AnyThread
+    @WorkerThread
     private fun downloadAndUnzip() {
         val zipFile = downloadZipFile()
 
@@ -130,7 +114,7 @@ class DownloadService : Service() {
         sendBroadcast(intent)
     }
 
-    @AnyThread
+    @WorkerThread
     private fun unzip(zipFile: File?): File? {
         if (zipFile != null) {
             val fileInputStream = FileInputStream(zipFile)
