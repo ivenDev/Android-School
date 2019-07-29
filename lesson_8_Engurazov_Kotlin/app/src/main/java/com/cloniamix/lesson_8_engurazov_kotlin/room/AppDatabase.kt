@@ -12,10 +12,10 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun noteDao(): NoteDao
 
     companion object {
-        private var INSTANCE: AppDatabase? = null
+        private lateinit var INSTANCE: AppDatabase
 
         fun getInstance(context: Context): AppDatabase? {
-            if (INSTANCE == null){
+            if (!::INSTANCE.isInitialized){
                 synchronized(AppDatabase::class){
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,

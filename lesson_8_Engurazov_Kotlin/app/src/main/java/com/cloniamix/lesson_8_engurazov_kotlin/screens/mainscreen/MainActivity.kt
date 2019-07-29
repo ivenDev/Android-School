@@ -1,9 +1,9 @@
 package com.cloniamix.lesson_8_engurazov_kotlin.screens.mainscreen
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.cloniamix.lesson_8_engurazov_kotlin.R
@@ -18,6 +18,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 
+// TODO баг с непропаданием заметок их архива
 class MainActivity : AppCompatActivity(), MyListener {
 
     companion object {
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity(), MyListener {
 
     private var disposable: Disposable? = null
     private var disposableSearch: Disposable? = null
-    private  var db: AppDatabase? = null
+    private  var db: AppDatabase? = null // TODO lateinit
     private val adapter = NoteAdapter(this)
 
 
@@ -87,7 +88,13 @@ class MainActivity : AppCompatActivity(), MyListener {
 
 
     private fun searchNote(searchText: String){
-        disposableSearch = db?.noteDao()?.getNotesBySearchText(searchText)
+
+        db?.let { database ->
+            database.noteDao()
+
+        }
+        disposableSearch = db?.noteDao()?.getNotesBySearchText(searchText) // TODO lateinit избавит от вопросов
+                // TODO error ветка
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
             ?.subscribe(this::updateUi)
@@ -119,6 +126,7 @@ class MainActivity : AppCompatActivity(), MyListener {
     // выбор view для показа в зависимости от флага
     private fun showView(flag: Int){
 
+        // TODO viewFlipper, расскахать как можно избавиться от утилитного класса
         when(flag){
             FLAG_DATA -> {
                 Utils.setViewVisible(progressBar, false)

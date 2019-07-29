@@ -2,10 +2,10 @@ package com.cloniamix.lesson_8_engurazov_kotlin.screens.notescreen
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.cloniamix.lesson_8_engurazov_kotlin.R
 import com.cloniamix.lesson_8_engurazov_kotlin.room.AppDatabase
@@ -65,7 +65,7 @@ class NoteActivity : AppCompatActivity(), ColorListener {
         val colorRecyclerView = layoutInflater.inflate(R.layout.view_color_recycler, null)
         colorRecyclerView.recyclerViewColorList.layoutManager =
             GridLayoutManager(this, SPAN_COUNT)
-        colorRecyclerView.recyclerViewColorList.addItemDecoration(ItemOffsetDecoration(8))
+        colorRecyclerView.recyclerViewColorList.addItemDecoration(ItemOffsetDecoration(8)) // TODO пиксели? магия
 
 
         val colorAdapter = ColorAdapter(this)
