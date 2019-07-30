@@ -7,7 +7,6 @@ import com.cloniamix.lesson12engurazovkotlin.provider.BridgesRepository
 
 class ApplicationComponents private constructor(context: Context){
 
-    //todo: объявить переменные
     private var context: Context? = null
     private var apiService: BridgeApi
     private var bridgesRepository: BridgesRepository
