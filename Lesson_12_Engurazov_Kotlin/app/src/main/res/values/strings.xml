@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Lesson_12_Engurazov_Kotlin</string>
+    <string name="title_text">The Most SPB</string>
+    <string name="view_error_text">Ошибка загрузки данных</string>
+    <string name="list_menu_item_text">Список</string>
+    <string name="map_menu_item_text">Карта</string>
+    <string name="snackbar_permissions_text">Данные геолокации нужны для определения вашего местоположения. Нам нужно
+        Ваше разрешение :)
+    </string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for core functionality.</string>
+    <string name="settings">Настройки</string>
 </resources>
