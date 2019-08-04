@@ -41,7 +41,7 @@
         android:id="@+id/imageViewStatusIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_bridge_normal"
+        tools:srcCompat="@drawable/ic_bridge_normal"
         android:paddingTop="@dimen/padding_16"
         android:paddingBottom="@dimen/padding_16"
         app:layout_constraintTop_toTopOf="parent"

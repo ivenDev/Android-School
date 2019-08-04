@@ -1,21 +1,19 @@
 package com.cloniamix.lesson12engurazovkotlin.ui.bridgelistscreen
 
-import android.text.format.DateUtils.HOUR_IN_MILLIS
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cloniamix.lesson12engurazovkotlin.R
 import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
-import com.cloniamix.lesson12engurazovkotlin.data.model.Divorce
-import com.cloniamix.lesson12engurazovkotlin.ui.MainActivity.Companion.STATUS_LATE
-import com.cloniamix.lesson12engurazovkotlin.ui.MainActivity.Companion.STATUS_NORMAL
-import com.cloniamix.lesson12engurazovkotlin.ui.MainActivity.Companion.STATUS_SOON
+import com.cloniamix.lesson12engurazovkotlin.ui.base.BasePresenter
+import com.cloniamix.lesson12engurazovkotlin.ui.base.BasePresenter.Companion.STATUS_LATE
+import com.cloniamix.lesson12engurazovkotlin.ui.base.BasePresenter.Companion.STATUS_NORMAL
+import com.cloniamix.lesson12engurazovkotlin.ui.base.BasePresenter.Companion.STATUS_SOON
 import kotlinx.android.synthetic.main.view_bridge_item.view.*
-import java.text.SimpleDateFormat
 import java.util.*
 
-class BridgesAdapter(/*private val listener: BridgesListFragment.OnBridgesListFragmentInteractionListener*/) :
+class BridgesAdapter :
     RecyclerView.Adapter<BridgesAdapter.BridgesViewHolder>() {
 
     private var bridges: List<Bridge> = ArrayList()
@@ -42,20 +40,14 @@ class BridgesAdapter(/*private val listener: BridgesListFragment.OnBridgesListFr
         notifyDataSetChanged()
     }
 
-//    fun setListener(listener: BridgesListItemListener){
-//        this.listener = listener
-//        notifyDataSetChanged()
-//    }
-
-
     inner class BridgesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(bridge: Bridge) {
-            itemView.setOnClickListener { listener?.bridgeItemClick(bridge) }
+            itemView.setOnClickListener { listener?.bridgeItemClick(bridge.id) }
             itemView.textViewBridgeName.text = bridge.name
 
-            setStatusIconResId(getBridgeStatus(bridge.divorces))
-            itemView.textViewTime.text = getStringDivorceTime(bridge.divorces)
+            setStatusIconResId(BasePresenter.getBridgeStatus(bridge.divorces))
+            itemView.textViewTime.text = BasePresenter.getStringDivorceTime(bridge.divorces)
         }
 
         private fun setStatusIconResId(status: Int) {
@@ -71,46 +63,10 @@ class BridgesAdapter(/*private val listener: BridgesListFragment.OnBridgesListFr
                 }
             }
         }
-
-        private fun getStringDivorceTime(divorceTimesList: List<Divorce>): String {
-            val formatter = SimpleDateFormat("h:mm")
-            var divorceTime = ""
-            for (divorce in divorceTimesList) {
-                divorceTime =
-                    divorceTime + formatter.format(divorce.start) + " - " + formatter.format(divorce.end) + "  "
-            }
-            return divorceTime
-        }
-
-        private fun getBridgeStatus(divorceTimesList: List<Divorce>): Int {
-
-            var bridgeStatus = STATUS_NORMAL
-
-            val currentTime = Calendar.getInstance()
-
-            for (divorce in divorceTimesList) {
-
-                val startTime: Calendar = Calendar.getInstance()
-                startTime.timeInMillis = divorce.start.time
-                startTime.set(currentTime[Calendar.YEAR], currentTime[Calendar.MONTH], currentTime[Calendar.DATE])
-
-                val endTime: Calendar = Calendar.getInstance()
-                endTime.timeInMillis = divorce.end.time
-                endTime.set(currentTime[Calendar.YEAR], currentTime[Calendar.MONTH], currentTime[Calendar.DATE])
-
-                if (bridgeStatus != STATUS_LATE && startTime.timeInMillis - currentTime.timeInMillis in 0..HOUR_IN_MILLIS)
-                    bridgeStatus = STATUS_SOON
-
-                if (currentTime.after(startTime) && currentTime.before(endTime))
-                    bridgeStatus = STATUS_LATE
-            }
-
-            return bridgeStatus
-        }
     }
 
     interface BridgesListItemListener{
-        fun bridgeItemClick(bridge: Bridge)
+        fun bridgeItemClick(bridgeId: Int)
     }
 
 }

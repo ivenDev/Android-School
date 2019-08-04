@@ -6,7 +6,7 @@ import com.cloniamix.lesson12engurazovkotlin.ui.base.MvpView
 interface MainActivityMvpView : MvpView {
 
     fun showBridgesListFragment()
-    fun showBridgeDetailsFragment()
+    fun showBridgeDetailsFragment(bridgeId: Int)
     fun showBridgesInMapFragment()
 //    fun showProgress()
 //    fun showErrorState()

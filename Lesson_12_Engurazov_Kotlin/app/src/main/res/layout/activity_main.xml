@@ -6,12 +6,10 @@
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity">
 
-
-        <FrameLayout
-                android:id="@+id/frameLayoutFragmentContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-        </FrameLayout>
-
+    <FrameLayout
+            android:id="@+id/frameLayoutFragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

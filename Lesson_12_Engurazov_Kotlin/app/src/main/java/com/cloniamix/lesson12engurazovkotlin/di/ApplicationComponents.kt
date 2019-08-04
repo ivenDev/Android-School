@@ -6,13 +6,15 @@ import com.cloniamix.lesson12engurazovkotlin.data.remote.BridgeApiService
 import com.cloniamix.lesson12engurazovkotlin.provider.BridgesRepository
 import com.cloniamix.lesson12engurazovkotlin.ui.bridgelistscreen.BridgesAdapter
 import com.cloniamix.lesson12engurazovkotlin.ui.MainActivityPresenter
+import com.cloniamix.lesson12engurazovkotlin.ui.bridgedetailsscreen.BridgeDetailsFragmentPresenter
 import com.cloniamix.lesson12engurazovkotlin.ui.bridgelistscreen.BridgesListFragmentPresenter
+import com.cloniamix.lesson12engurazovkotlin.ui.bridgesinmapscreen.BridgesInMapFragmentPresenter
 
 class ApplicationComponents private constructor(/*context: Context*/){
 
     //private var context: Context? = null
     private var apiService: BridgeApi= BridgeApiService.getClient
-    private var bridgesRepository: BridgesRepository = BridgesRepository(apiService)
+    private var bridgesRepository: BridgesRepository = BridgesRepository(provideApiService())
 
     /*init {
         //this.context = context
@@ -53,8 +55,17 @@ class ApplicationComponents private constructor(/*context: Context*/){
     fun provideMainActivityPresenter(): MainActivityPresenter {
         return MainActivityPresenter(/*provideBridgesRepository()*/)
     }
-    fun provideBridgeListPresenter(): BridgesListFragmentPresenter {
+
+    fun provideBridgesListPresenter(): BridgesListFragmentPresenter {
         return BridgesListFragmentPresenter(/*provideBridgesRepository()*/)
+    }
+
+    fun provideBridgeDetailsPresenter(): BridgeDetailsFragmentPresenter {
+        return BridgeDetailsFragmentPresenter()
+    }
+
+    fun provideBridgesInMapFragmentPresenter(): BridgesInMapFragmentPresenter {
+        return BridgesInMapFragmentPresenter()
     }
 
     fun provideBridgesRepository(): BridgesRepository {

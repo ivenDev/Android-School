@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object BridgeApiService {
 
-    private const val BASE_URL = "https://gdemost.handh.ru"
+    const val BASE_URL = "https://gdemost.handh.ru"
     private const val TIME_FORMAT = "HH:mm:ss"
     val getClient: BridgeApi
         get() {
