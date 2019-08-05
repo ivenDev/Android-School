@@ -1,18 +1,19 @@
 package com.cloniamix.lesson12engurazovkotlin.di
 
-import com.cloniamix.lesson12engurazovkotlin.data.remote.BridgeApi
-import com.cloniamix.lesson12engurazovkotlin.data.remote.BridgeApiService
-import com.cloniamix.lesson12engurazovkotlin.provider.BridgesRepository
-import com.cloniamix.lesson12engurazovkotlin.ui.bridgelistscreen.BridgesAdapter
-import com.cloniamix.lesson12engurazovkotlin.ui.MainActivityPresenter
-import com.cloniamix.lesson12engurazovkotlin.ui.bridgedetailsscreen.BridgeDetailsFragmentPresenter
-import com.cloniamix.lesson12engurazovkotlin.ui.bridgelistscreen.BridgesListFragmentPresenter
-import com.cloniamix.lesson12engurazovkotlin.ui.bridgesinmapscreen.BridgesInMapFragmentPresenter
+import com.cloniamix.lesson12engurazovkotlin.mvp.contract.basemodel.remote.BridgeApi
+import com.cloniamix.lesson12engurazovkotlin.mvp.contract.basemodel.remote.BridgeApiService
+import com.cloniamix.lesson12engurazovkotlin.mvp.model.BridgesRepository
+import com.cloniamix.lesson12engurazovkotlin.mvp.screens.bridgelistscreen.adapters.BridgesAdapter
+import com.cloniamix.lesson12engurazovkotlin.mvp.screens.MainActivityPresenter
+import com.cloniamix.lesson12engurazovkotlin.mvp.screens.bridgedetailsscreen.BridgeDetailsFragmentPresenter
+import com.cloniamix.lesson12engurazovkotlin.mvp.screens.bridgelistscreen.BridgesListFragmentPresenter
+import com.cloniamix.lesson12engurazovkotlin.mvp.screens.bridgesinmapscreen.BridgesInMapFragmentPresenter
 
 class ApplicationComponents private constructor() {
 
     private var apiService: BridgeApi = BridgeApiService.getClient
-    private var bridgesRepository: BridgesRepository = BridgesRepository(provideApiService())
+    private var bridgesRepository: BridgesRepository =
+        BridgesRepository(provideApiService())
 
 
     companion object {
