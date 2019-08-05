@@ -1,7 +1,8 @@
 package com.cloniamix.lesson12engurazovkotlin.ui
 
+import android.util.Log
+import com.cloniamix.lesson12engurazovkotlin.MyApplication.Companion.APP_TAG
 import com.cloniamix.lesson12engurazovkotlin.data.BridgesData
-import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
 import com.cloniamix.lesson12engurazovkotlin.ui.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -15,37 +16,36 @@ class MainActivityPresenter :
     fun onCreate() {
         checkViewAttached()
         getBridgesList()
-        if (isViewAttached()){
+        if (isViewAttached()) {
             getMvpView()?.showBridgesListFragment()
         }
     }
 
-    fun onBridgeItemClicked(bridgeId: Int){
+    fun onBridgeItemClicked(bridgeId: Int) {
         getMvpView()?.showBridgeDetailsFragment(bridgeId)
     }
 
-    fun onMenuMapItemClicked(){
+    fun onMenuMapItemClicked() {
         getMvpView()?.showBridgesInMapFragment()
     }
 
-    fun onMenuListItemClicked(){
+    fun onMenuListItemClicked() {
         getMvpView()?.showBridgesListFragment()
     }
 
-    override fun doInOk(bridges: List<Bridge>) {
-        BridgesData.getInstance()?.setBridgesList(bridges)
+    fun onMenuBackClicked() {
+        getMvpView()?.showBridgesListFragment()
     }
 
-    override fun doError(t: Throwable) {
-        //todo: показать тост об ошибке?
-    }
 
-    /*private fun getBridgesList() {
+    private fun getBridgesList() {
         disposable = bridgesRepository?.getBridges()
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe{ bridges -> BridgesData.getInstance()?.setBridgesList(bridges) }
-    } */
+            ?.subscribe( { bridges -> BridgesData.getInstance()?.setBridgesList(bridges) },
+                {throwable -> Log.d(APP_TAG, "Error: $throwable") }
+                )
+    }
 
     override fun doUnsubscribe() {
         if (disposable != null) {

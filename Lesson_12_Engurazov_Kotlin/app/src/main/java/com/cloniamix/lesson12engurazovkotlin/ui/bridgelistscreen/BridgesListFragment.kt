@@ -11,6 +11,7 @@ import com.cloniamix.lesson12engurazovkotlin.R
 import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
 import com.cloniamix.lesson12engurazovkotlin.di.ApplicationComponents
 import kotlinx.android.synthetic.main.bridge_list_fragment.*
+import kotlinx.android.synthetic.main.error_view.*
 
 class BridgesListFragment :
     Fragment(),
@@ -37,7 +38,6 @@ class BridgesListFragment :
         if (context is OnBridgesListFragmentInteractionListener) {
             listener = context
         } else {
-            //fixme: Вынести в ресурсы
             throw RuntimeException("$context must implement OnBridgesListFragmentInteractionListener")
         }
     }
@@ -48,7 +48,7 @@ class BridgesListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        imageViewRefresh.setOnClickListener { bridgesListFragmentPresenter.onRefresh() }
+        textViewError.setOnClickListener { bridgesListFragmentPresenter.onRefresh() }
         swipeRefresh.setOnRefreshListener { bridgesListFragmentPresenter.onSwipeRefresh() }
 
         toolbar.inflateMenu(R.menu.map_menu)

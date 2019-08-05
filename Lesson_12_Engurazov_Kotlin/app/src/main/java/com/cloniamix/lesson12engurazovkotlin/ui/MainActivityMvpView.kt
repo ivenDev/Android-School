@@ -8,8 +8,4 @@ interface MainActivityMvpView : MvpView {
     fun showBridgesListFragment()
     fun showBridgeDetailsFragment(bridgeId: Int)
     fun showBridgesInMapFragment()
-//    fun showProgress()
-//    fun showErrorState()
-//    fun showData()
-    //fun setBridgesList(bridges: List<Bridge>)
 }

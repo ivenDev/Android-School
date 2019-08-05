@@ -19,47 +19,14 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <!--todo: (Все экраны) вынести прогресс и вью ошибки в отдельный xml-->
     <ViewFlipper
             android:id="@+id/viewFlipperStates"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="?android:attr/progressBarStyle"
-                android:layout_gravity="center"/>
+        <include layout="@layout/loading_progress_bar"/>
 
-        <!--todo:(Все экраны) попробовать исправить замечание-->
-        <LinearLayout
-                android:id="@+id/linearLayoutError"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center">
-
-
-            <ImageView
-                    android:id="@+id/imageViewRefresh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    app:srcCompat="@drawable/ic_autorenew_black_24dp"
-                    android:background="?android:attr/selectableItemBackground"/>
-
-            <TextView
-                    android:id="@+id/textViewError"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/padding_16"
-                    style="@style/HeaderTextTheme"
-                    android:gravity="center"
-                    android:text="@string/view_error_text"
-
-            />
-        </LinearLayout>
+        <include layout="@layout/error_view"/>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefresh"

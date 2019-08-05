@@ -5,6 +5,10 @@ import com.cloniamix.lesson12engurazovkotlin.di.ApplicationComponents
 
 class MyApplication : Application() {
 
+    companion object {
+        const val APP_TAG = "lesson12"
+    }
+
     private lateinit var applicationComponents: ApplicationComponents
 
     override fun onCreate() {

@@ -1,6 +1,5 @@
 package com.cloniamix.lesson12engurazovkotlin.di
 
-import android.content.Context
 import com.cloniamix.lesson12engurazovkotlin.data.remote.BridgeApi
 import com.cloniamix.lesson12engurazovkotlin.data.remote.BridgeApiService
 import com.cloniamix.lesson12engurazovkotlin.provider.BridgesRepository
@@ -10,54 +9,41 @@ import com.cloniamix.lesson12engurazovkotlin.ui.bridgedetailsscreen.BridgeDetail
 import com.cloniamix.lesson12engurazovkotlin.ui.bridgelistscreen.BridgesListFragmentPresenter
 import com.cloniamix.lesson12engurazovkotlin.ui.bridgesinmapscreen.BridgesInMapFragmentPresenter
 
-class ApplicationComponents private constructor(/*context: Context*/){
+class ApplicationComponents private constructor() {
 
-    //private var context: Context? = null
-    private var apiService: BridgeApi= BridgeApiService.getClient
+    private var apiService: BridgeApi = BridgeApiService.getClient
     private var bridgesRepository: BridgesRepository = BridgesRepository(provideApiService())
 
-    /*init {
-        //this.context = context
-        //apiService = BridgeApiService.getClient
-        //bridgesRepository = BridgesRepository(apiService)
-    }*/
 
     companion object {
 
-        private var INSTANCE: ApplicationComponents? = null //fixme: ругается на передачу контекста
+        private var INSTANCE: ApplicationComponents? = null
 
-        fun getInstance (/*context: Context*/): ApplicationComponents?{
-            if (INSTANCE == null){
-                synchronized(ApplicationComponents::class.java){
-                    INSTANCE = ApplicationComponents(/*context*/)
-
+        fun getInstance(): ApplicationComponents? {
+            if (INSTANCE == null) {
+                synchronized(ApplicationComponents::class.java) {
+                    INSTANCE = ApplicationComponents()
                 }
             }
-
             return INSTANCE
         }
     }
 
-
-
-    fun provideApiService(): BridgeApi{
+    fun provideApiService(): BridgeApi {
         return apiService
     }
 
-//    fun provideContext(): Context?{
-//        return context
-//    }
 
     fun provideBridgesAdapter(): BridgesAdapter {
         return BridgesAdapter()
     }
 
     fun provideMainActivityPresenter(): MainActivityPresenter {
-        return MainActivityPresenter(/*provideBridgesRepository()*/)
+        return MainActivityPresenter()
     }
 
     fun provideBridgesListPresenter(): BridgesListFragmentPresenter {
-        return BridgesListFragmentPresenter(/*provideBridgesRepository()*/)
+        return BridgesListFragmentPresenter()
     }
 
     fun provideBridgeDetailsPresenter(): BridgeDetailsFragmentPresenter {

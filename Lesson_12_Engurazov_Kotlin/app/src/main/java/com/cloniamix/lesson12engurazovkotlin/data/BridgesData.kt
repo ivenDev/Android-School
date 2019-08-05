@@ -9,9 +9,9 @@ class BridgesData private constructor() {
     companion object {
         private var INSTANCE: BridgesData? = null
 
-        fun getInstance(): BridgesData?{
-            if (INSTANCE == null){
-                synchronized(BridgesData::class.java){
+        fun getInstance(): BridgesData? {
+            if (INSTANCE == null) {
+                synchronized(BridgesData::class.java) {
                     INSTANCE = BridgesData()
                 }
             }
@@ -19,11 +19,11 @@ class BridgesData private constructor() {
         }
     }
 
-    fun setBridgesList(bridgesList: List<Bridge>){
+    fun setBridgesList(bridgesList: List<Bridge>) {
         this.bridgesList = bridgesList
     }
 
-    fun getBridgesList(): List<Bridge>{
+    fun getBridgesList(): List<Bridge> {
         return bridgesList
     }
 }

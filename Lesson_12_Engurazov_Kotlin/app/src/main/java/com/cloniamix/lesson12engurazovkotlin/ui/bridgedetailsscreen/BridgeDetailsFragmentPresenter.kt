@@ -1,6 +1,7 @@
 package com.cloniamix.lesson12engurazovkotlin.ui.bridgedetailsscreen
 
 import android.util.Log
+import com.cloniamix.lesson12engurazovkotlin.MyApplication.Companion.APP_TAG
 import com.cloniamix.lesson12engurazovkotlin.R
 import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
 import com.cloniamix.lesson12engurazovkotlin.data.remote.BridgeApiService.BASE_URL
@@ -20,23 +21,26 @@ class BridgeDetailsFragmentPresenter : BasePresenter<BridgeDetailsMvpView>() {
         getBridgeDetailsById(bridgeId)
     }
 
-    fun onRefresh(bridgeId: Int){
+    fun onRefresh(bridgeId: Int) {
         getMvpView()?.showState(FLAG_PROGRESS)
         getBridgeDetailsById(bridgeId)
     }
 
     private fun getBridgeDetailsById(bridgeId: Int) {
-        disposable = bridgesRepository?.getBridgeInfoById(bridgeId)
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe({ bridge -> updateUi(bridge) },
-                {t: Throwable? ->  onError(t) }
-            )
+        disposable = bridgesRepository?.getBridgeInfoById(bridgeId)?.let {
+            it
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ bridge -> updateUi(bridge) },
+                    { t: Throwable? -> onError(t) }
+                )
+        }
+
     }
 
     private fun onError(t: Throwable?) {
 
-        Log.d("MyTag", t.toString())
+        Log.d(APP_TAG, t.toString())
 
         if (isViewAttached()) {
             getMvpView()?.showState(FLAG_ERROR)
@@ -58,12 +62,13 @@ class BridgeDetailsFragmentPresenter : BasePresenter<BridgeDetailsMvpView>() {
         }
     }
 
-    fun getDivorceTime(bridge: Bridge): String{
+
+    fun getDivorceTime(bridge: Bridge): String {
         return getStringDivorceTime(bridge.divorces)
     }
 
-    fun getBridgePhotoUrl(bridge: Bridge): String{
-        return when (getBridgeStatus(bridge.divorces) == STATUS_LATE){
+    fun getBridgePhotoUrl(bridge: Bridge): String {
+        return when (getBridgeStatus(bridge.divorces) == STATUS_LATE) {
             true -> "$BASE_URL/${bridge.photoClose}"
             false -> "$BASE_URL/${bridge.photoOpen}"
         }
@@ -75,11 +80,5 @@ class BridgeDetailsFragmentPresenter : BasePresenter<BridgeDetailsMvpView>() {
         }
     }
 
-    override fun doInOk(bridges: List<Bridge>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
-    override fun doError(t: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }

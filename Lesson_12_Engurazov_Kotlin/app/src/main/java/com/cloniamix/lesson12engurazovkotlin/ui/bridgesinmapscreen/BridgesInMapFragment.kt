@@ -13,6 +13,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.cloniamix.lesson12engurazovkotlin.BuildConfig
+import com.cloniamix.lesson12engurazovkotlin.MyApplication.Companion.APP_TAG
 import com.cloniamix.lesson12engurazovkotlin.R
 import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
 import com.cloniamix.lesson12engurazovkotlin.di.ApplicationComponents
@@ -36,6 +38,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.bridges_map_fragment.*
+import kotlinx.android.synthetic.main.error_view.*
 import kotlinx.android.synthetic.main.view_bridge_item.view.*
 
 class BridgesInMapFragment :
@@ -85,7 +88,6 @@ class BridgesInMapFragment :
             settingsClient = LocationServices.getSettingsClient(context)
 
         } else {
-            //fixme: Вынести в ресурсы
             throw RuntimeException("$context must implement OnBridgesInMapFragmentInteractionListener")
         }
     }
@@ -101,7 +103,7 @@ class BridgesInMapFragment :
     }
 
     private fun init() {
-        imageViewRefreshMap.setOnClickListener { bridgesInMapFragmentPresenter.onRefresh() }
+        textViewError.setOnClickListener { bridgesInMapFragmentPresenter.onRefresh() }
 
         toolbarMap.inflateMenu(R.menu.list_menu)
         toolbarMap.setOnMenuItemClickListener {
@@ -171,13 +173,12 @@ class BridgesInMapFragment :
 
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
-        //map?.isMyLocationEnabled = true
 
         settingsClient.checkLocationSettings(
             bridgesInMapFragmentPresenter.buildLocationSettingsRequest()
         )
             .addOnSuccessListener {
-                //Utils.log("All location settings are satisfied.")
+                Log.d(APP_TAG, "All location settings are satisfied.")
                 fusedLocationClient.requestLocationUpdates(
                     bridgesInMapFragmentPresenter.createLocationRequest(),
                     locationCallback,
@@ -190,20 +191,23 @@ class BridgesInMapFragment :
                 val statusCode = (it as ApiException).statusCode
                 when (statusCode) {
                     LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> {
-                        //Utils.log("Location settings are not satisfied. Attempting to upgrade " + "location settings ")
+                        Log.d(
+                            APP_TAG,
+                            "Location settings are not satisfied. Attempting to upgrade " + "location settings "
+                        )
                         try {
                             // Show the dialog by calling startResolutionForResult(), and check the
                             // result in onActivityResult().
                             val rae = it as ResolvableApiException
                             rae.startResolutionForResult(activity, REQUEST_CHECK_SETTINGS)
                         } catch (e: IntentSender.SendIntentException) {
-                            //Utils.log("PendingIntent unable to execute request.")
+                            Log.d(APP_TAG, "PendingIntent unable to execute request.")
                         }
                     }
                     LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
                         val errorMessage = "Location settings are inadequate, and cannot be " +
                                 "fixed here. Fix in Settings."
-                        //Utils.log(errorMessage)
+                        Log.e(APP_TAG, errorMessage)
                         Toast.makeText(activity, errorMessage, Toast.LENGTH_LONG).show()
                         requestingLocationUpdates = false
                     }
@@ -216,9 +220,10 @@ class BridgesInMapFragment :
 
     private fun stopLocationUpdates() {
         if (!requestingLocationUpdates) {
-            //Utils.log("stopLocationUpdates: updates never requested, no-op.")
+            Log.d(APP_TAG, "stopLocationUpdates: updates never requested, no-op.")
             return
         }
+        Log.d(APP_TAG, "stopLocationUpdates: location updates stopped.")
         fusedLocationClient.removeLocationUpdates(locationCallback)
             .addOnCompleteListener { requestingLocationUpdates = false }
     }
@@ -246,11 +251,20 @@ class BridgesInMapFragment :
         this.map = googleMap
 
         val saintPetersburg = LatLng(PETERSBURG_LAT, PETERSBURG_LNG)
-        this.map?.moveCamera(CameraUpdateFactory.newLatLngZoom(saintPetersburg, ZOOM_CAMERA))
-        this.map?.setMinZoomPreference(ZOOM_MIN)
-        this.map?.setMaxZoomPreference(ZOOM_MAX)
-        this.map?.uiSettings?.isZoomControlsEnabled = true
-        this.map?.uiSettings?.isZoomGesturesEnabled = true
+        this.map?.let {
+            it.moveCamera(CameraUpdateFactory.newLatLngZoom(saintPetersburg, ZOOM_CAMERA))
+            it.setMinZoomPreference(ZOOM_MIN)
+            it.setMaxZoomPreference(ZOOM_MAX)
+            it.uiSettings.isZoomControlsEnabled = true
+            it.uiSettings.isZoomGesturesEnabled = true
+
+            it.setOnMarkerClickListener { marker ->
+                showBridgeInfoByMarker(marker)
+                false
+            }
+
+            it.setOnMapClickListener { viewBridgeItem.visibility = View.GONE }
+        }
 
         if (checkPermissions()) {
             if (!requestingLocationUpdates) {
@@ -258,35 +272,18 @@ class BridgesInMapFragment :
                 startLocationUpdates()
             }
         }
+
         createLocationCallback()
-
-        /*map?.setOnMyLocationButtonClickListener {
-            if (!requestingLocationUpdates) {
-                requestingLocationUpdates = true
-                startLocationUpdates()
-            }
-
-            false
-        }*/
-        this.map?.setOnMarkerClickListener { marker ->
-            showBridgeInfoByMarker(marker)
-            false
-        }
-
-        this.map?.setOnMapClickListener { viewBridgeItem.visibility = View.GONE }
-
     }
 
     override fun addMarkers(bridges: List<Bridge>) {
-        var count = 0
         for (bridge in bridges) {
             val markerOptions = MarkerOptions()
                 .position(LatLng(bridge.lat, bridge.lng))
                 .title(bridge.name)
                 .icon(BitmapDescriptorFactory.fromResource(bridgesInMapFragmentPresenter.getStatusIconResId(bridge)))
             val marker: Marker? = map?.addMarker(markerOptions)
-            marker?.tag = count
-            count++
+            marker?.tag = bridges.indexOf(bridge)
         }
     }
 
@@ -345,8 +342,6 @@ class BridgesInMapFragment :
                     permissions[0] === Manifest.permission.ACCESS_FINE_LOCATION &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED
                 ) {
-
-                    /*map?.isMyLocationEnabled = true*/
                     startLocationUpdates()
                 }
             else -> {
@@ -371,9 +366,7 @@ class BridgesInMapFragment :
             getString(mainTextStringId)
             , Snackbar.LENGTH_INDEFINITE
         )
-
         snackbar.setAction(getString(actionStringId), listener).show()
-
     }
 
 

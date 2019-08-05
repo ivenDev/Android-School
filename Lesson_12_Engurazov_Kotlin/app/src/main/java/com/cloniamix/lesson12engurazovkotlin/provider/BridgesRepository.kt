@@ -7,12 +7,12 @@ import io.reactivex.Single
 
 class BridgesRepository(private val apiService: BridgeApi) {
 
-    fun getBridges(): Single<List<Bridge>>{
+    fun getBridges(): Single<List<Bridge>> {
         return apiService.getBridges()
             .map(BridgesResponse::getBridges)
     }
 
-    fun getBridgeInfoById(bridgeId: Int): Single<Bridge>{
+    fun getBridgeInfoById(bridgeId: Int): Single<Bridge> {
         return apiService.getBridgeInfoById(bridgeId)
     }
 }

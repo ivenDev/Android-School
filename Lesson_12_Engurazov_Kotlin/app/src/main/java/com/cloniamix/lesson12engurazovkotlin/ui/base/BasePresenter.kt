@@ -2,12 +2,8 @@ package com.cloniamix.lesson12engurazovkotlin.ui.base
 
 import android.text.format.DateUtils
 import androidx.annotation.NonNull
-import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
 import com.cloniamix.lesson12engurazovkotlin.data.model.Divorce
 import com.cloniamix.lesson12engurazovkotlin.di.ApplicationComponents
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,10 +19,10 @@ abstract class BasePresenter<T : MvpView> : Presenter<T> {
         const val STATUS_SOON: Int = 2 //мост скоро разведется
         const val STATUS_LATE: Int = 3 // мост разведен
 
-        //fixme: подумать как обыграть (сделать эти методы протектед, а в статике вызывать их через другие методы)
-        //нужны чтобы вызвать их в адаптере
+
+        //нужны в статике, чтобы вызвать их в адаптере
         fun getStringDivorceTime(divorceTimesList: List<Divorce>): String {
-            val formatter = SimpleDateFormat("h:mm")
+            val formatter = SimpleDateFormat("h:mm", Locale.ROOT)
             var divorceTime = ""
             for (divorce in divorceTimesList) {
                 divorceTime =
@@ -66,7 +62,6 @@ abstract class BasePresenter<T : MvpView> : Presenter<T> {
 
     @NonNull
     protected val bridgesRepository = ApplicationComponents.getInstance()?.provideBridgesRepository()
-    private var disposable: Disposable? = null
 
     override fun attachView(mvpView: T) {
         this.mvpView = mvpView
@@ -74,12 +69,8 @@ abstract class BasePresenter<T : MvpView> : Presenter<T> {
 
     override fun detachView() {
         mvpView = null
-        if (disposable != null) {
-            disposable?.dispose()
-        }
         doUnsubscribe()
     }
-
 
     protected fun isViewAttached(): Boolean {
         return mvpView != null
@@ -93,22 +84,8 @@ abstract class BasePresenter<T : MvpView> : Presenter<T> {
         if (!isViewAttached()) throw MvpViewNotAttachedException()
     }
 
-
-    //todo: реализовать метод получения по id
-    protected fun getBridgesList() {
-        disposable = bridgesRepository?.getBridges()
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe({ bridges -> doInOk(bridges)},
-                { t -> doError(t) }
-            )
-    }
-
     protected abstract fun doUnsubscribe()
 
-    //fixme: подумать как обозвать эти методы понятнее
-    protected abstract fun doInOk(bridges: List<Bridge>)
-    protected abstract fun doError(t: Throwable)
 
     class MvpViewNotAttachedException :
         RuntimeException("Please call Presenter.attachView(MvpView) before" + " requesting data to the Presenter")

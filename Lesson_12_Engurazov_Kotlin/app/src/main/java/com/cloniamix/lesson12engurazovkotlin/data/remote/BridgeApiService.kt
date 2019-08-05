@@ -9,6 +9,7 @@ object BridgeApiService {
 
     const val BASE_URL = "https://gdemost.handh.ru"
     private const val TIME_FORMAT = "HH:mm:ss"
+
     val getClient: BridgeApi
         get() {
 

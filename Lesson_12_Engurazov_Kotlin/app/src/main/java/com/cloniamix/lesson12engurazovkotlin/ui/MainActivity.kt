@@ -2,7 +2,6 @@ package com.cloniamix.lesson12engurazovkotlin.ui
 
 import android.os.Bundle
 import com.cloniamix.lesson12engurazovkotlin.R
-import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
 import com.cloniamix.lesson12engurazovkotlin.ui.base.BaseActivity
 import com.cloniamix.lesson12engurazovkotlin.ui.bridgedetailsscreen.BridgeDetailsFragment
 import com.cloniamix.lesson12engurazovkotlin.ui.bridgelistscreen.BridgesListFragment
@@ -14,14 +13,6 @@ class MainActivity : BaseActivity(),
     BridgeDetailsFragment.OnBridgeDetailsFragmentInteractionListener,
     BridgesInMapFragment.OnBridgesInMapFragmentInteractionListener {
 
-    /*companion object {
-
-//        fun createStartIntent(context: Context): Intent {
-//            return Intent(context, MainActivity::class.java)
-//        }
-    }*/
-
-    // todo: посмотреть как избавиться от знаков вопроса
     private lateinit var mainActivityPresenter: MainActivityPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +52,7 @@ class MainActivity : BaseActivity(),
     }
 
 
-    //region BridgesListFragment Callbacks
+    //region BridgesListFragment callbacks
     override fun bridgeItemClicked(bridgeId: Int) {
         mainActivityPresenter.onBridgeItemClicked(bridgeId)
     }
@@ -71,9 +62,17 @@ class MainActivity : BaseActivity(),
     }
     //endregion
 
+    //region BridgeDetailsFragment callbacks
+    override fun menuBackClicked() {
+        onBackPressed()
+//        mainActivityPresenter.onMenuBackClicked()
+    }
+    //endregion
+
     //region BridgesInMapFragment callbacks
     override fun menuListItemClicked() {
-        mainActivityPresenter.onMenuListItemClicked()
+        onBackPressed()
+//        mainActivityPresenter.onMenuListItemClicked()
     }
 
     override fun bridgeItemMapClicked(bridgeId: Int) {

@@ -1,12 +1,8 @@
 package com.cloniamix.lesson12engurazovkotlin.ui.bridgelistscreen
 
 import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
-import com.cloniamix.lesson12engurazovkotlin.ui.base.MvpView
+import com.cloniamix.lesson12engurazovkotlin.ui.base.FragmentMvpView
 
-interface BridgesListMvpView : MvpView {
+interface BridgesListMvpView : FragmentMvpView {
     fun showBridges(bridges: List<Bridge>)
-    //    fun showBridgeDetails(bridge: Bridge)
-//    fun showErrorState()
-//    fun showProgress()
-    fun showState(stateFlag: Int)
 }

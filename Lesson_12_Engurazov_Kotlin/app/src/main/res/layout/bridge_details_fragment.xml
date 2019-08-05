@@ -51,8 +51,6 @@
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingStart="@dimen/padding_16"
-            android:paddingEnd="@dimen/padding_16"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -61,56 +59,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="?android:attr/progressBarStyle"
-                    android:layout_gravity="center"/>
+            <include layout="@layout/loading_progress_bar"/>
 
-            <LinearLayout
-                    android:id="@+id/linearLayoutError"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-
-                <ImageView
-                        android:id="@+id/imageViewBrDetailsRefresh"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="20dp"
-                        app:srcCompat="@drawable/ic_autorenew_black_24dp"
-                        android:background="?android:attr/selectableItemBackground"/>
-
-                <TextView
-                        android:id="@+id/textViewError"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/padding_16"
-                        style="@style/HeaderTextTheme"
-                        android:gravity="center"
-                        android:text="@string/view_error_text"
-
-                />
-            </LinearLayout>
+            <include layout="@layout/error_view"/>
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                <include layout="@layout/view_bridge_item"/>
+                <include layout="@layout/view_bridge_item"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginStart="@dimen/padding_16"
+                         android:layout_marginEnd="@dimen/padding_16"/>
 
                 <TextView
                         android:id="@+id/textViewDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
+                        android:paddingStart="@dimen/padding_16"
+                        android:paddingEnd="@dimen/padding_16"
                         style="@style/TimeAndDescriptionTextTheme"
-                        tools:text="Первый мост на этом месте был построен
-в 1893—1894 годах по проекту инженера Н. М. Мазурова. Это был двадцатипятипролётный деревянный трапецеидально-подкосный мост длиной 326 м со средним 14-метровым разводным пролётом. Трасса моста пролегала по оси узкого Зоологического переулка. В 1930 и 1937 годах мост расширялся, деревянные пролёты были заменены на металлические.
+                        tools:text="Первый мост на этом месте был построен в 1893—1894 годах по проекту инженера Н. М. Мазурова. Это был двадцатипятипролётный деревянный трапецеидально-подкосный мост длиной 326 м со средним 14-метровым разводным пролётом. Трасса моста пролегала по оси узкого Зоологического переулка. В 1930 и 1937 годах мост расширялся, деревянные пролёты были заменены на металлические.
 "
                 />
             </LinearLayout>

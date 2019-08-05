@@ -1,6 +1,7 @@
 package com.cloniamix.lesson12engurazovkotlin.ui.bridgesinmapscreen
 
 import android.util.Log
+import com.cloniamix.lesson12engurazovkotlin.MyApplication.Companion.APP_TAG
 import com.cloniamix.lesson12engurazovkotlin.R
 import com.cloniamix.lesson12engurazovkotlin.data.BridgesData
 import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
@@ -19,25 +20,39 @@ class BridgesInMapFragmentPresenter : BasePresenter<BridgesInMapMvpView>() {
     }
 
     private var disposable: Disposable? = null
-
+    //private var bridges: List<Bridge> = BridgesData.getInstance()!!.getBridgesList()
 
     fun onViewCreated() {
         checkViewAttached()
         getMvpView()?.showState(FLAG_PROGRESS)
+
         getBridgesList()
+
+        //fixme: если данные уже есть, то они приходят быстрее, чем отрисовывается карта
+        /*if (bridges.isEmpty()) {
+            getBridgesList()
+        } else {
+            updateUi(bridges)
+        }*/
     }
 
-    /*private fun getBridgesList() {
-        disposable = bridgesRepository?.getBridges()
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe({ bridges -> updateUi(bridges) },
-                { t -> error(t) }
-            )
-    }*/
+    private fun getBridgesList() {
+        disposable = bridgesRepository?.getBridges()?.let {
+            it
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ bridges ->
+                    BridgesData.getInstance()?.setBridgesList(bridges)
+                    updateUi(bridges)
+                },
+                    { t -> error(t) }
+                )
+        }
+
+    }
 
     private fun updateUi(bridges: List<Bridge>) {
-        BridgesData.getInstance()?.setBridgesList(bridges)
+
 
         if (isViewAttached()) {
             getMvpView()?.showState(FLAG_DATA)
@@ -45,9 +60,22 @@ class BridgesInMapFragmentPresenter : BasePresenter<BridgesInMapMvpView>() {
         }
     }
 
+    /*private fun createMarkers(bridges: List<Bridge>) {
+        var count = 0
+        for (bridge in bridges) {
+            val markerOptions = MarkerOptions()
+                .position(LatLng(bridge.lat, bridge.lng))
+                .title(bridge.name)
+                .icon(BitmapDescriptorFactory.fromResource(getStatusIconResId(bridge)))
+            val marker: Marker? = map?.addMarker(markerOptions)
+            marker?.tag = count
+            count++
+        }
+    }*/
+
     private fun error(t: Throwable?) {
 
-        Log.d("MyTag", t.toString())
+        Log.d(APP_TAG, t.toString())
 
         if (isViewAttached()) {
             getMvpView()?.showState(FLAG_ERROR)
@@ -97,13 +125,5 @@ class BridgesInMapFragmentPresenter : BasePresenter<BridgesInMapMvpView>() {
         if (disposable != null) {
             disposable?.dispose()
         }
-    }
-
-    override fun doInOk(bridges: List<Bridge>) {
-        updateUi(bridges)
-    }
-
-    override fun doError(t: Throwable) {
-        error(t)
     }
 }

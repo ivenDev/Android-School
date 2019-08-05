@@ -34,7 +34,7 @@ class BridgesAdapter :
         holder.bind(bridges[position])
     }
 
-    fun setBridges(bridges: List<Bridge>, listener: BridgesListItemListener){
+    fun setBridges(bridges: List<Bridge>, listener: BridgesListItemListener) {
         this.bridges = bridges
         this.listener = listener
         notifyDataSetChanged()
@@ -65,7 +65,7 @@ class BridgesAdapter :
         }
     }
 
-    interface BridgesListItemListener{
+    interface BridgesListItemListener {
         fun bridgeItemClick(bridgeId: Int)
     }
 

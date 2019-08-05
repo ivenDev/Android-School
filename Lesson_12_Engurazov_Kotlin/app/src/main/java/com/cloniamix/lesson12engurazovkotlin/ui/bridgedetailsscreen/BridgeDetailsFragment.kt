@@ -12,6 +12,7 @@ import com.cloniamix.lesson12engurazovkotlin.R
 import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
 import com.cloniamix.lesson12engurazovkotlin.di.ApplicationComponents
 import kotlinx.android.synthetic.main.bridge_details_fragment.*
+import kotlinx.android.synthetic.main.error_view.*
 import kotlinx.android.synthetic.main.view_bridge_item.*
 
 class BridgeDetailsFragment :
@@ -19,8 +20,6 @@ class BridgeDetailsFragment :
     BridgeDetailsMvpView {
 
     companion object {
-
-
         private const val ARG_IMAGE_RES_ID = "param1"
 
         fun newInstance(bridgeId: Int): BridgeDetailsFragment {
@@ -35,7 +34,6 @@ class BridgeDetailsFragment :
     }
 
     private var bridgeId: Int = -1
-
     private var listener: OnBridgeDetailsFragmentInteractionListener? = null
     private val bridgeDetailsFragmentPresenter =
         ApplicationComponents.getInstance()!!.provideBridgeDetailsPresenter()
@@ -45,7 +43,6 @@ class BridgeDetailsFragment :
         if (context is OnBridgeDetailsFragmentInteractionListener) {
             listener = context
         } else {
-            //fixme: Вынести в ресурсы
             throw RuntimeException("$context must implement OnBridgeDetailsFragmentInteractionListener")
         }
     }
@@ -63,8 +60,8 @@ class BridgeDetailsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        imageViewBrDetailsRefresh.setOnClickListener { bridgeDetailsFragmentPresenter.onRefresh(bridgeId) }
-        toolbarBridgeDetail.setNavigationOnClickListener { activity?.onBackPressed() }
+        textViewError.setOnClickListener { bridgeDetailsFragmentPresenter.onRefresh(bridgeId) }
+        toolbarBridgeDetail.setNavigationOnClickListener { listener?.menuBackClicked() }
         bridgeDetailsFragmentPresenter.attachView(this)
         bridgeDetailsFragmentPresenter.onViewCreated(bridgeId)
     }
@@ -102,5 +99,7 @@ class BridgeDetailsFragment :
     }
 
 
-    interface OnBridgeDetailsFragmentInteractionListener
+    interface OnBridgeDetailsFragmentInteractionListener {
+        fun menuBackClicked()
+    }
 }
