@@ -10,12 +10,12 @@ import com.cloniamix.lesson_8_engurazov_kotlin.R
 import com.cloniamix.lesson_8_engurazov_kotlin.utils.ColorListener
 import kotlinx.android.synthetic.main.view_color_item.view.*
 
-// TODO при применении цвета у заметки не меняется цвет
 class ColorAdapter(private val listener: ColorListener) :
     RecyclerView.Adapter<ColorAdapter.ColorViewHolder>() {
 
+    private val whiteColor = "#ffffff"
     private var colorList: List<String> = ArrayList()
-    private var checkPosition: Int? = null // TODO магическое число
+    private var checkPosition: Int? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ColorViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -27,10 +27,8 @@ class ColorAdapter(private val listener: ColorListener) :
 
 
     override fun onBindViewHolder(holder: ColorViewHolder, position: Int) {
-        if (position == checkPosition)
-            holder.bind(colorList[position]/*, true*/, position)
 
-        else holder.bind(colorList[position]/*, false*/, position)
+        holder.bind(colorList[position], position)
     }
 
     fun setData(colors: List<String>, noteColor: String){
@@ -43,11 +41,10 @@ class ColorAdapter(private val listener: ColorListener) :
     inner class ColorViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
 
-        fun bind(color: String, position: Int/*, isChecked: Boolean*/){
+        fun bind(color: String, position: Int){
 
             if (position == checkPosition) {
-                // TODO опасно!
-                if (color == "#ffffff") itemView.imageButtonColor.setImageResource(R.drawable.ic_check_black)
+                if (color == whiteColor) itemView.imageButtonColor.setImageResource(R.drawable.ic_check_black)
                 else itemView.imageButtonColor.setImageResource(R.drawable.ic_check_white)
             }
             else itemView.imageButtonColor.setImageResource(android.R.color.transparent)

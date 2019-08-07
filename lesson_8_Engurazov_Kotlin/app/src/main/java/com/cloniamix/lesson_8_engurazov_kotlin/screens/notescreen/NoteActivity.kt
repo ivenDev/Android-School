@@ -1,8 +1,11 @@
 package com.cloniamix.lesson_8_engurazov_kotlin.screens.notescreen
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +14,7 @@ import com.cloniamix.lesson_8_engurazov_kotlin.R
 import com.cloniamix.lesson_8_engurazov_kotlin.room.AppDatabase
 import com.cloniamix.lesson_8_engurazov_kotlin.room.entity.Note
 import com.cloniamix.lesson_8_engurazov_kotlin.screens.mainscreen.ItemOffsetDecoration
+import com.cloniamix.lesson_8_engurazov_kotlin.screens.mainscreen.MainActivity
 import com.cloniamix.lesson_8_engurazov_kotlin.screens.notescreen.adapter.ColorAdapter
 import com.cloniamix.lesson_8_engurazov_kotlin.utils.ColorListener
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,6 +28,7 @@ class NoteActivity : AppCompatActivity(), ColorListener {
     companion object {
         private const val TAG_NOTE = "noteTag"
         private const val SPAN_COUNT = 4
+
         fun createStartIntent(context: Context, note: Note?): Intent {
             val intent = Intent(context, NoteActivity::class.java)
 
@@ -34,8 +39,10 @@ class NoteActivity : AppCompatActivity(), ColorListener {
     }
 
     private var disposable: Disposable? = null
-    private  var db: AppDatabase? = null
+    private lateinit var db: AppDatabase
     private lateinit var note: Note
+
+    private lateinit var noteColor: String
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +54,8 @@ class NoteActivity : AppCompatActivity(), ColorListener {
             note = intent.getParcelableExtra(TAG_NOTE)
             editTextHeader.setText(note.header)
             editTextNoteText.setText(note.content)
+            noteColor = note.backgroundColor
+            constraintLayoutNote.setBackgroundColor(Color.parseColor(noteColor))
         } else note = Note()
 
         db = AppDatabase.getInstance(this)
@@ -65,7 +74,8 @@ class NoteActivity : AppCompatActivity(), ColorListener {
         val colorRecyclerView = layoutInflater.inflate(R.layout.view_color_recycler, null)
         colorRecyclerView.recyclerViewColorList.layoutManager =
             GridLayoutManager(this, SPAN_COUNT)
-        colorRecyclerView.recyclerViewColorList.addItemDecoration(ItemOffsetDecoration(8)) // TODO пиксели? магия
+
+        colorRecyclerView.recyclerViewColorList.addItemDecoration(ItemOffsetDecoration(resources.getDimension(R.dimen.padding_recycler_view_note_list).toInt()))
 
 
         val colorAdapter = ColorAdapter(this)
@@ -75,7 +85,7 @@ class NoteActivity : AppCompatActivity(), ColorListener {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.color_dialog_title_text))
             .setView(colorRecyclerView)
-            .setPositiveButton(getString(R.string.dialog_button_ok_text)) { dialog, _ ->  dialog.dismiss() }
+            .setPositiveButton(getString(R.string.dialog_button_ok_text)) { dialog, _ ->  setNoteBackgroundColor(dialog) }
             .show()
     }
 
@@ -86,12 +96,20 @@ class NoteActivity : AppCompatActivity(), ColorListener {
         insertNoteIntoDb()
     }
 
+    private fun setNoteBackgroundColor(dialog: DialogInterface){
+        constraintLayoutNote.setBackgroundColor(Color.parseColor(noteColor))
+        note.backgroundColor = noteColor
+        dialog.dismiss()
+    }
     private fun insertNoteIntoDb(){
 
-        disposable = db?.noteDao()?.insertNote(note)
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe { Toast.makeText(this, getString(R.string.toast_save_text), Toast.LENGTH_SHORT).show() }
+        disposable = db.noteDao().insertNote(note)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe ({ showToast(getString(R.string.toast_save_text)) },
+                { throwable ->
+                    Log.d(MainActivity.APP_TAG, throwable.toString())
+                    showToast(getString(R.string.db_error_toast_text)) })
     }
 
     private fun getHeader(): String{
@@ -103,8 +121,14 @@ class NoteActivity : AppCompatActivity(), ColorListener {
     }
 
     override fun changeColor(color: String) {
-        note.backgroundColor = color
+//        constraintLayoutNote.setBackgroundColor(Color.parseColor(color))
+//        note.backgroundColor = color
+        noteColor = color
 
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
 }

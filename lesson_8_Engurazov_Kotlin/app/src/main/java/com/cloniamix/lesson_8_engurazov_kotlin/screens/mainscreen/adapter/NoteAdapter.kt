@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.view_note_item.view.*
 
 class NoteAdapter(private val listener: MyListener) : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
-    private lateinit var noteList: List<Note>
+    private var noteList: List<Note> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
         val view: View = LayoutInflater.from(parent.context)
