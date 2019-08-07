@@ -3,12 +3,9 @@ package com.cloniamix.lesson11engurazovkotlin
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
 import android.util.TypedValue
 import android.view.MotionEvent
 import kotlin.collections.ArrayList
@@ -22,6 +19,7 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
     private var animation: ValueAnimator? = null
 
     private val maxColumnsCount = 9
+    private val modelText = "55.55"
 
     private val verticalIndent =
         TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5.toFloat(), resources.displayMetrics)
@@ -29,8 +27,10 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
     private lateinit var textPaint: Paint
     private var textBounds = Rect()
 
-    private val statistics: ArrayList<DayStatistic> = ArrayList()
+    private var statistics: List<DayStatistic> = ArrayList()
     private val animatedValues: ArrayList<Int> = ArrayList()
+    private val rectF = RectF()
+
 
     init {
         val a: TypedArray = context.theme.obtainStyledAttributes(
@@ -50,7 +50,7 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
     }
 
     private fun init() {
-        textPaint = Paint()
+        textPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
         val spSize = 11
         val scaledSizeInPixels = TypedValue.applyDimension(
@@ -65,25 +65,32 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
      * иначе удаляет первый элемент, а затем добавляет новый
      * и перерисовывает вью
      *
-     * @param dayStatistic Экземпляр класса DayStatistic с данными даты и значением показателя в этот день
+     * @param newStatistics список DayStatistic-с с данными даты и значением показателя в этот день
      *
      */
-    fun setDayStatistic(dayStatistic: DayStatistic) {
-        if (statistics.size < maxColumnsCount) {
-            statistics.add(dayStatistic)
-            animatedValues.add(dayStatistic.statisticValue)
+    fun setDayStatistics(newStatistics: ArrayList<DayStatistic>) {
+        if (newStatistics.size < maxColumnsCount) {
+            addData(newStatistics)
+
         } else {
-            statistics.remove(statistics[0])
-            animatedValues.remove(animatedValues[0])
-            statistics.add(dayStatistic)
-            animatedValues.add(dayStatistic.statisticValue)
+            while (newStatistics.size > maxColumnsCount) {
+                newStatistics.remove(newStatistics[0])
+            }
+            addData(newStatistics)
         }
 
         invalidate()
     }
 
+    private fun addData(newStatistics: ArrayList<DayStatistic>) {
+        statistics = newStatistics
+        for (dayStatistic in newStatistics) {
+            animatedValues.add(dayStatistic.statisticValue)
+        }
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val text = "02.05"
+        val text = modelText
         textPaint.getTextBounds(text, 0, text.length, textBounds)
 
         var maxStatisticValue = 0
@@ -99,15 +106,15 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
         )
 
 
-        val minw = paddingLeft + paddingRight + maxColumnsCount * (textBounds.width() + textBounds.width() / 2)
-        val w = View.resolveSizeAndState(minw, widthMeasureSpec, 0)
+        val minW = paddingLeft + paddingRight + maxColumnsCount * (textBounds.width() + textBounds.width() + 1 / 2)
+        val w = View.resolveSizeAndState(minW, widthMeasureSpec, 0)
 
-        val minh = paddingBottom + paddingTop +
+        val minH = paddingBottom + paddingTop +
                 (textBounds.height() + textPaint.fontMetrics.descent.toInt()) * 2 +
                 scaledValueInDp.toInt() +
                 4 * verticalIndent.toInt()
 
-        val h = View.resolveSizeAndState(minh, heightMeasureSpec, 0)
+        val h = View.resolveSizeAndState(minH, heightMeasureSpec, 0)
 
         setMeasuredDimension(w, h)
     }
@@ -117,10 +124,10 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
 
         for (dayStatistic in statistics) {
             val index = statistics.indexOf(dayStatistic)
-            textPaint.flags = Paint.ANTI_ALIAS_FLAG
-            textPaint.color = dateColor
 
+            textPaint.color = dateColor
             textPaint.textAlign = Paint.Align.LEFT
+
             val fm = textPaint.fontMetrics
             val horizontalIndent: Float =
                 (width - (statistics.size * textBounds.width())) / (statistics.size + 1).toFloat()
@@ -136,7 +143,7 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
             val lineWidth = 4
             val lineWidthInDp =
                 TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, lineWidth.toFloat(), resources.displayMetrics)
-            textPaint.strokeWidth = lineWidthInDp
+            //textPaint.strokeWidth = lineWidthInDp
             textPaint.color = columnColor
 
             val valueInDp: Float = TypedValue.applyDimension(
@@ -144,13 +151,17 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
                 animatedValues[index].toFloat(),
                 resources.displayMetrics
             )
+            rectF.left = horizontalIndent + textBounds.width() / 2 + index * (horizontalIndent + textBounds.width())
+            rectF.top = height - (textBounds.height() + fm.descent + 2 * verticalIndent)
+            rectF.right =
+                horizontalIndent + textBounds.width() / 2 + index * (horizontalIndent + textBounds.width()) + lineWidthInDp
+            rectF.bottom = height - (textBounds.height() + fm.descent + 2 * verticalIndent + valueInDp)
 
             //Рисует столбик
-            canvas?.drawLine(
-                horizontalIndent + textBounds.width() / 2 + index * (horizontalIndent + textBounds.width()),
-                height - (textBounds.height() + fm.descent + 2 * verticalIndent),
-                horizontalIndent + textBounds.width() / 2 + index * (horizontalIndent + textBounds.width()),
-                height - (textBounds.height() + fm.descent + 2 * verticalIndent + valueInDp),
+            canvas?.drawRoundRect(
+                rectF,
+                lineWidthInDp,
+                lineWidthInDp,
                 textPaint
             )
 
@@ -184,25 +195,24 @@ class StatisticsView(context: Context, attrs: AttributeSet) : View(context, attr
      */
     fun startMyAnimate() {
         toggleMyAnimation()
-        invalidate()
+        /*invalidate()*/
     }
 
     private fun toggleMyAnimation() {
         if (animation != null) {
             animation?.cancel()
             animation = null
-        } else {
-            for (s in statistics) {
-                animation = ValueAnimator.ofInt(0, s.statisticValue)
-                animation?.duration = 1000
-                animation?.addUpdateListener {
-                    val index = statistics.indexOf(s)
-                    animatedValues[index] = it.animatedValue as Int
-                    invalidate()
-                }
-                animation?.start()
-            }
+        }
 
+        for (statistic in statistics) {
+            animation = ValueAnimator.ofInt(0, statistic.statisticValue)
+            animation?.duration = 1000
+            animation?.addUpdateListener {
+                val index = statistics.indexOf(statistic)
+                animatedValues[index] = it.animatedValue as Int
+                invalidate()
+            }
+            animation?.start()
         }
     }
 
