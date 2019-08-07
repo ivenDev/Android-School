@@ -17,10 +17,10 @@ class ApplicationComponents private constructor() {
 
     companion object {
 
-        private var INSTANCE: ApplicationComponents? = null
+        private lateinit var INSTANCE: ApplicationComponents
 
-        fun getInstance(): ApplicationComponents? {
-            if (INSTANCE == null) {
+        fun getInstance(): ApplicationComponents {
+            if (!::INSTANCE.isInitialized) {
                 synchronized(ApplicationComponents::class.java) {
                     INSTANCE = ApplicationComponents()
                 }

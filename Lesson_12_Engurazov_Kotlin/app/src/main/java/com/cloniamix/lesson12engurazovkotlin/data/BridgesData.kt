@@ -7,10 +7,10 @@ class BridgesData private constructor() {
     private var bridgesList: List<Bridge> = ArrayList()
 
     companion object {
-        private var INSTANCE: BridgesData? = null
+        private lateinit var INSTANCE: BridgesData
 
-        fun getInstance(): BridgesData? {
-            if (INSTANCE == null) {
+        fun getInstance(): BridgesData {
+            if (!::INSTANCE.isInitialized) {
                 synchronized(BridgesData::class.java) {
                     INSTANCE = BridgesData()
                 }
