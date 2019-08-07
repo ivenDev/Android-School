@@ -36,7 +36,7 @@ class BridgeDetailsFragment :
     private var bridgeId: Int = -1
     private var listener: OnBridgeDetailsFragmentInteractionListener? = null
     private val bridgeDetailsFragmentPresenter =
-        ApplicationComponents.getInstance()!!.provideBridgeDetailsPresenter()
+        ApplicationComponents.getInstance().provideBridgeDetailsPresenter()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

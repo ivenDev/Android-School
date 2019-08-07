@@ -65,7 +65,7 @@ class BridgesInMapFragment :
 
     private var listener: OnBridgesInMapFragmentInteractionListener? = null
     private val bridgesInMapFragmentPresenter: BridgesInMapFragmentPresenter =
-        ApplicationComponents.getInstance()!!.provideBridgesInMapFragmentPresenter()
+        ApplicationComponents.getInstance().provideBridgesInMapFragmentPresenter()
 
     private var map: GoogleMap? = null
     private lateinit var fusedLocationClient: FusedLocationProviderClient
