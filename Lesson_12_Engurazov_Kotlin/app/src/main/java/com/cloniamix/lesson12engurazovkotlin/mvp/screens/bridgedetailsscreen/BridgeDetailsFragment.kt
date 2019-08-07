@@ -38,7 +38,7 @@ class BridgeDetailsFragment :
     private var bridgeId: Int = -1
     private var listener: OnBridgeDetailsFragmentInteractionListener? = null
     private val bridgeDetailsFragmentPresenter =
-        ApplicationComponents.getInstance()!!.provideBridgeDetailsPresenter()
+        ApplicationComponents.getInstance().provideBridgeDetailsPresenter()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -94,7 +94,7 @@ class BridgeDetailsFragment :
 
     private fun setBridgePhoto(bridge: Bridge) {
         Glide.with(this)
-            .load(bridgeDetailsFragmentPresenter.getBridgePhotoUrl(bridge)/*"$BASE_URL/$bridgePhoto"*/)
+            .load(bridgeDetailsFragmentPresenter.getBridgePhotoUrl(bridge))
             .centerCrop()
             .placeholder(R.drawable.ic_no_content)
             .into(imageViewBridgePhoto)

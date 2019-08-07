@@ -30,20 +30,11 @@ class MainActivityPresenter :
         getMvpView()?.showBridgesInMapFragment()
     }
 
-    fun onMenuListItemClicked() {
-        getMvpView()?.showBridgesListFragment()
-    }
-
-    fun onMenuBackClicked() {
-        getMvpView()?.showBridgesListFragment()
-    }
-
-
     private fun getBridgesList() {
-        disposable = bridgesRepository?.getBridges()
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe( { bridges -> BridgesData.getInstance()?.setBridgesList(bridges) },
+        disposable = bridgesRepository.getBridges()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe( { bridges -> BridgesData.getInstance().setBridgesList(bridges) },
                 {throwable -> Log.d(APP_TAG, "Error: $throwable") }
                 )
     }

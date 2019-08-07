@@ -29,10 +29,10 @@ class BridgesListFragment :
 
     private var listener: OnBridgesListFragmentInteractionListener? = null
 
-    private var bridgesAdapter = ApplicationComponents.getInstance()?.provideBridgesAdapter()
+    private var bridgesAdapter = ApplicationComponents.getInstance().provideBridgesAdapter()
 
     private val bridgesListFragmentPresenter: BridgesListFragmentPresenter =
-        ApplicationComponents.getInstance()!!.provideBridgesListPresenter()
+        ApplicationComponents.getInstance().provideBridgesListPresenter()
 
 
     override fun onAttach(context: Context) {
@@ -79,7 +79,7 @@ class BridgesListFragment :
 
     override fun showBridges(bridges: List<Bridge>) {
         swipeRefresh.isRefreshing = false
-        bridgesAdapter?.setBridges(bridges, this)
+        bridgesAdapter.setBridges(bridges, this)
     }
 
     //region BridgesAdapter callback

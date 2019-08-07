@@ -66,7 +66,7 @@ abstract class BasePresenter<T : MvpView> :
     private var mvpView: T? = null
 
     @NonNull
-    protected val bridgesRepository = ApplicationComponents.getInstance()?.provideBridgesRepository()
+    protected val bridgesRepository = ApplicationComponents.getInstance().provideBridgesRepository()
 
     override fun attachView(mvpView: T) {
         this.mvpView = mvpView

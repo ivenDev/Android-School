@@ -28,15 +28,12 @@ class BridgeDetailsFragmentPresenter : BasePresenter<BridgeDetailsMvpView>() {
     }
 
     private fun getBridgeDetailsById(bridgeId: Int) {
-        disposable = bridgesRepository?.getBridgeInfoById(bridgeId)?.let {
-            it
+        disposable = bridgesRepository.getBridgeInfoById(bridgeId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ bridge -> updateUi(bridge) },
                     { t: Throwable? -> onError(t) }
                 )
-        }
-
     }
 
     private fun onError(t: Throwable?) {

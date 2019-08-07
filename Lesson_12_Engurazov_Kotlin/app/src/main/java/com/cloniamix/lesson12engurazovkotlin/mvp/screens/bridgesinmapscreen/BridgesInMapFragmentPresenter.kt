@@ -37,18 +37,15 @@ class BridgesInMapFragmentPresenter : BasePresenter<BridgesInMapMvpView>() {
     }
 
     private fun getBridgesList() {
-        disposable = bridgesRepository?.getBridges()?.let {
-            it
+        disposable = bridgesRepository.getBridges()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ bridges ->
-                    BridgesData.getInstance()?.setBridgesList(bridges)
+                    BridgesData.getInstance().setBridgesList(bridges)
                     updateUi(bridges)
                 },
                     { t -> error(t) }
                 )
-        }
-
     }
 
     private fun updateUi(bridges: List<Bridge>) {
@@ -83,7 +80,7 @@ class BridgesInMapFragmentPresenter : BasePresenter<BridgesInMapMvpView>() {
     }
 
     fun getBridges(): List<Bridge> {
-        return BridgesData.getInstance()!!.getBridgesList()
+        return BridgesData.getInstance().getBridgesList()
     }
 
     fun getStatusIconResId(bridge: Bridge): Int {
