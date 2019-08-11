@@ -4,6 +4,21 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
+/**
+ * Класс-модель объекта мост
+ *
+ * @param description информация о мосте
+ * @param descriptionEng информация о мосте на английском языке
+ * @param divorces время, когда мост будет разведен
+ * @param id id моста
+ * @param lat координата широты моста
+ * @param lng координата долготы моста
+ * @param name название моста
+ * @param nameEng название моста на английском
+ * @param photoClose url фотографии разведенного моста
+ * @param photoOpen url фотографии сведенного моста
+ * */
+
 @Parcelize
 data class Bridge(
     @SerializedName("description") val description: String,

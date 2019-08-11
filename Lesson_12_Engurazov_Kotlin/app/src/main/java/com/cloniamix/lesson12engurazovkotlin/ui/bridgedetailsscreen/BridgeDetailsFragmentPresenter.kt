@@ -2,9 +2,8 @@ package com.cloniamix.lesson12engurazovkotlin.ui.bridgedetailsscreen
 
 import android.util.Log
 import com.cloniamix.lesson12engurazovkotlin.MyApplication.Companion.APP_TAG
-import com.cloniamix.lesson12engurazovkotlin.R
 import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
-import com.cloniamix.lesson12engurazovkotlin.data.remote.BridgeApiService.BASE_URL
+import com.cloniamix.lesson12engurazovkotlin.data.model.BridgeHelper
 import com.cloniamix.lesson12engurazovkotlin.ui.base.BasePresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -53,23 +52,16 @@ class BridgeDetailsFragmentPresenter : BasePresenter<BridgeDetailsMvpView>() {
     }
 
     fun getStatusIconResId(bridge: Bridge): Int {
-        return when (getBridgeStatus(bridge.divorces)) {
-            STATUS_SOON -> R.drawable.ic_bridge_soon
-            STATUS_LATE -> R.drawable.ic_bridge_late
-            else -> R.drawable.ic_bridge_normal
-        }
+        return BridgeHelper.getStatusIconResId(bridge)
     }
 
 
     fun getDivorceTime(bridge: Bridge): String {
-        return getStringDivorceTime(bridge.divorces)
+        return BridgeHelper.getStringDivorceTime(bridge.divorces)
     }
 
     fun getBridgePhotoUrl(bridge: Bridge): String {
-        return when (getBridgeStatus(bridge.divorces) == STATUS_LATE) {
-            true -> "$BASE_URL/${bridge.photoClose}"
-            false -> "$BASE_URL/${bridge.photoOpen}"
-        }
+        return BridgeHelper.getBridgePhotoUrl(bridge)
     }
 
     override fun doUnsubscribe() {

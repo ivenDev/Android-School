@@ -20,12 +20,12 @@ class BridgeDetailsFragment :
     BridgeDetailsMvpView {
 
     companion object {
-        private const val ARG_IMAGE_RES_ID = "param1"
+        private const val ARG_BRIDGE_ID = "bridgeId"
 
         fun newInstance(bridgeId: Int): BridgeDetailsFragment {
             val bridgeDetailsFragment = BridgeDetailsFragment()
             val args = Bundle()
-            args.putInt(ARG_IMAGE_RES_ID, bridgeId)
+            args.putInt(ARG_BRIDGE_ID, bridgeId)
 
             bridgeDetailsFragment.arguments = args
 
@@ -50,7 +50,7 @@ class BridgeDetailsFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (arguments != null) {
-            bridgeId = (arguments as Bundle).getInt(ARG_IMAGE_RES_ID)
+            bridgeId = (arguments as Bundle).getInt(ARG_BRIDGE_ID)
         }
     }
 
@@ -92,7 +92,7 @@ class BridgeDetailsFragment :
 
     private fun setBridgePhoto(bridge: Bridge) {
         Glide.with(this)
-            .load(bridgeDetailsFragmentPresenter.getBridgePhotoUrl(bridge)/*"$BASE_URL/$bridgePhoto"*/)
+            .load(bridgeDetailsFragmentPresenter.getBridgePhotoUrl(bridge))
             .centerCrop()
             .placeholder(R.drawable.ic_no_content)
             .into(imageViewBridgePhoto)

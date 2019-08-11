@@ -13,7 +13,7 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        applicationComponents = ApplicationComponents.getInstance(/*this*/)!!
+        applicationComponents = ApplicationComponents.getInstance()
     }
 
     fun getApplicationComponents(): ApplicationComponents{

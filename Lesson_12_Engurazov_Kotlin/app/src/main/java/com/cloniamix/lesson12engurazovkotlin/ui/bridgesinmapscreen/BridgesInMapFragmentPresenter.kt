@@ -2,9 +2,9 @@ package com.cloniamix.lesson12engurazovkotlin.ui.bridgesinmapscreen
 
 import android.util.Log
 import com.cloniamix.lesson12engurazovkotlin.MyApplication.Companion.APP_TAG
-import com.cloniamix.lesson12engurazovkotlin.R
 import com.cloniamix.lesson12engurazovkotlin.data.BridgesData
 import com.cloniamix.lesson12engurazovkotlin.data.model.Bridge
+import com.cloniamix.lesson12engurazovkotlin.data.model.BridgeHelper
 import com.cloniamix.lesson12engurazovkotlin.ui.base.BasePresenter
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationSettingsRequest
@@ -24,8 +24,6 @@ class BridgesInMapFragmentPresenter : BasePresenter<BridgesInMapMvpView>() {
 
     fun onViewCreated() {
         checkViewAttached()
-        getMvpView()?.showState(FLAG_PROGRESS)
-
         getBridgesList()
 
         //fixme: если данные уже есть, то они приходят быстрее, чем отрисовывается карта
@@ -37,22 +35,23 @@ class BridgesInMapFragmentPresenter : BasePresenter<BridgesInMapMvpView>() {
     }
 
     private fun getBridgesList() {
-        disposable = bridgesRepository?.getBridges()?.let {
-            it
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ bridges ->
-                    BridgesData.getInstance()?.setBridgesList(bridges)
-                    updateUi(bridges)
-                },
-                    { t -> error(t) }
-                )
-        }
+
+        getMvpView()?.showState(FLAG_PROGRESS)
+
+        disposable = bridgesRepository.getBridges()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ bridges ->
+                BridgesData.getInstance().setBridgesList(bridges)
+                updateUi(bridges)
+            },
+                { t -> error(t) }
+            )
+
 
     }
 
     private fun updateUi(bridges: List<Bridge>) {
-
 
         if (isViewAttached()) {
             getMvpView()?.showState(FLAG_DATA)
@@ -83,23 +82,18 @@ class BridgesInMapFragmentPresenter : BasePresenter<BridgesInMapMvpView>() {
     }
 
     fun getBridges(): List<Bridge> {
-        return BridgesData.getInstance()!!.getBridgesList()
+        return BridgesData.getInstance().getBridgesList()
     }
 
     fun getStatusIconResId(bridge: Bridge): Int {
-        return when (getBridgeStatus(bridge.divorces)) {
-            STATUS_SOON -> R.drawable.ic_brige_soon_png
-            STATUS_LATE -> R.drawable.ic_brige_late_png
-            else -> R.drawable.ic_brige_normal_png
-        }
+        return BridgeHelper.getStatusIconPngResId(bridge)
     }
 
     fun getDivorceTime(bridge: Bridge): String {
-        return getStringDivorceTime(bridge.divorces)
+        return BridgeHelper.getStringDivorceTime(bridge.divorces)
     }
 
     fun onRefresh() {
-        getMvpView()?.showState(FLAG_PROGRESS)
         getBridgesList()
     }
 
@@ -119,7 +113,6 @@ class BridgesInMapFragmentPresenter : BasePresenter<BridgesInMapMvpView>() {
 
         return builder.build()
     }
-
 
     override fun doUnsubscribe() {
         if (disposable != null) {
