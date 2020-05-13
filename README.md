@@ -12,12 +12,12 @@
 
 * **[lesson 6](https://github.com/ivenDev/Android-School_Engurazov/tree/master/Lesson_6_Engurazov)** -
 
-* **[lesson 7](https://github.com/ivenDev/Android-School_Engurazov/tree/master/Lesson_7_Engurazov)** -
+* **[lesson 7](https://github.com/ivenDev/Android-School_Engurazov/tree/master/Lesson_7_Engurazov_Kotlin)** -
 
-* **[lesson 8](https://github.com/ivenDev/Android-School_Engurazov/tree/master/Lesson_8_Engurazov)** -
+* **[lesson 8](https://github.com/ivenDev/Android-School_Engurazov/tree/master/Lesson_8_Engurazov_Kotlin)** -
 
-* **[lesson 9](https://github.com/ivenDev/Android-School_Engurazov/tree/master/Lesson_9_Engurazov)** -
+* **[lesson 9](https://github.com/ivenDev/Android-School_Engurazov/tree/master/Lesson_9_Engurazov_Kotlin)** -
 
-* **[lesson 10](https://github.com/ivenDev/Android-School_Engurazov/tree/master/Lesson_10_Engurazov)** - Мосты. Список, Детальная информация, Карта 
+* **[lesson 10](https://github.com/ivenDev/Android-School_Engurazov/tree/master/Lesson_10_Engurazov_Kotlin)** - Мосты. Список, Детальная информация, Карта 
 
-* **[lesson 11](https://github.com/ivenDev/Android-School_Engurazov/tree/master/Lesson_11_Engurazov)** - Кастомное view 
+* **[lesson 11](https://github.com/ivenDev/Android-School_Engurazov/tree/master/Lesson_11_Engurazov_Kotlin)** - Кастомное view 
